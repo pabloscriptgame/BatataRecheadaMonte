@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Batata Recheada Monte - Delivery de Batatas Recheadas Deliciosas</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div class="logo-section">
+                <div class="logo">
+                    <img src="https://i.ibb.co/fdQ1Bt4S/20251022-124747.png" alt="Logo Batata Recheada Monte" class="logo-img">
+                </div>
+                <button class="hamburger" onclick="toggleMobileMenu()">≡</button>
+            </div>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#hero" onclick="closeMobileMenu()">Início</a></li>
+                <li><a href="#menu" onclick="closeMobileMenu()">Cardápio</a></li>
+                <li><a href="#specials" onclick="closeMobileMenu()">Especiais</a></li>
+                <li><a href="#contact" onclick="closeMobileMenu()">Contato</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="hero">
+        <h1>Bem-vindo à Batata Recheada Monte!</h1>
+        <p>Delícias recheadas com sabores irresistíveis. Peça agora e receba em casa!</p>
+        <a href="#menu" class="btn">Ver Cardápio</a>
+    </section>
+
+    <main>
+        <section id="menu">
+            <h2>Nosso Cardápio</h2>
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <h3>🍽️ Carne Seca ao Molho Branco</h3>
+                    <p>Carne seca desfiada ao nosso delicioso molho branco artesanal, servida na batata inglesa cozida, com queijo mussarela derretido, requeijão cremoso de pote, bacon em cubos e cebolinha.</p>
+                    <div class="size-options">
+                        <button class="size-btn" data-size="500g" data-price="34.00">500g - R$34,00</button>
+                        <button class="size-btn" data-size="750g" data-price="51.00">750g - R$51,00</button>
+                    </div>
+                    <button class="add-to-cart" onclick="addToCart('Carne Seca ao Molho Branco', this)">Adicionar ao Carrinho</button>
+                </div>
+
+                <div class="menu-item">
+                    <h3>🥓 Bacon ao Molho Branco</h3>
+                    <p>Bacon em cubos com molho branco artesanal, servido na batata inglesa cozida, com queijo mussarela derretido, requeijão cremoso de pote e cebolinha.</p>
+                    <div class="size-options">
+                        <button class="size-btn" data-size="500g" data-price="32.00">500g - R$32,00</button>
+                        <button class="size-btn" data-size="750g" data-price="48.00">750g - R$48,00</button>
+                    </div>
+                    <button class="add-to-cart" onclick="addToCart('Bacon ao Molho Branco', this)">Adicionar ao Carrinho</button>
+                </div>
+
+                <div class="menu-item">
+                    <h3>🍗 Frango ao Molho Branco ou ao Molho Sugo</h3>
+                    <p>Filé de peito de frango em cubos ao nosso delicioso molho branco artesanal, servido na batata inglesa cozida, com queijo mussarela derretido, bacon em cubos, requeijão cremoso de pote e cebolinha.</p>
+                    <div class="size-options">
+                        <button class="size-btn" data-size="500g" data-price="30.00">500g - R$30,00</button>
+                        <button class="size-btn" data-size="750g" data-price="45.00">750g - R$45,00</button>
+                    </div>
+                    <button class="add-to-cart" onclick="addToCart('Frango ao Molho Branco ou Sugo', this)">Adicionar ao Carrinho</button>
+                </div>
+
+                <div class="menu-item">
+                    <h3>🌭 Calabresa ao Molho Branco e Molho Sugo</h3>
+                    <p>Calabresa defumada com molho branco e molho sugo, servida na batata inglesa cozida, com queijo mussarela derretido, bacon em cubos, requeijão cremoso de pote e cebolinha.</p>
+                    <div class="size-options">
+                        <button class="size-btn" data-size="500g" data-price="32.00">500g - R$32,00</button>
+                        <button class="size-btn" data-size="750g" data-price="48.00">750g - R$48,00</button>
+                    </div>
+                    <button class="add-to-cart" onclick="addToCart('Calabresa ao Molho Branco e Sugo', this)">Adicionar ao Carrinho</button>
+                </div>
+
+                <div class="menu-item">
+                    <h3>🥩 Fraldinha ao Molho Sugo</h3>
+                    <p>Costela desfiada ao molho sugo, servida na batata inglesa cozida, com queijo mussarela derretido, requeijão cremoso de pote, bacon em cubos e cebolinha.</p>
+                    <div class="size-options">
+                        <button class="size-btn" data-size="500g" data-price="34.00">500g - R$34,00</button>
+                        <button class="size-btn" data-size="750g" data-price="51.00">750g - R$51,00</button>
+                    </div>
+                    <button class="add-to-cart" onclick="addToCart('Fraldinha ao Molho Sugo', this)">Adicionar ao Carrinho</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="specials">
+            <h2>🍲 Especiais de Sábado no Almoço</h2>
+            <ul class="specials-list">
+                <li>Galinhada morena</li>
+                <li>Tutu de feijão com bacon</li>
+                <li>Banana da terra frita</li>
+                <li>Vinagrete</li>
+            </ul>
+            <p class="specials-price">Tam. Médio: R$20,00 | Tam. Grande: R$25,00<br>Delivery disponível!</p>
+            <div class="specials-buttons">
+                <button class="add-to-cart" onclick="addToCart('Especial Sábado - Médio', null, 20.00)">Adicionar Médio R$20</button>
+                <button class="add-to-cart" onclick="addToCart('Especial Sábado - Grande', null, 25.00)">Adicionar Grande R$25</button>
+            </div>
+        </section>
+    </main>
+
+    <footer id="contact">
+        <div class="social-links">
+            <a href="https://wa.me/553499194464" target="_blank">📱 WhatsApp: (34) 9.9919-4464</a>
+            <a href="https://www.instagram.com/batatarecheadamonte" target="_blank">📸 Instagram</a>
+        </div>
+        <p>&copy; 2025 Batata Recheada Monte. Todos os direitos reservados.</p>
+    </footer>
+
+    <!-- Carrinho Lateral -->
+    <button id="cart-toggle" onclick="toggleCart()">🛒</button>
+    <div id="cart">
+        <h3>Carrinho de Compras</h3>
+        <div id="cart-items"></div>
+        <div id="cart-total">Total: R$ 0,00</div>
+        <button id="checkout-btn" onclick="checkout()">Finalizar Pedido via WhatsApp</button>
+        <button onclick="toggleCart()" class="close-cart">Fechar</button>
+    </div>
+
+    <!-- Container para Notificações (Toasts) -->
+    <div id="toast-container"></div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

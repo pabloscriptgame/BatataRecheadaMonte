@@ -20,6 +20,7 @@
             <ul class="nav-links" id="nav-links">
                 <li><a href="#hero" onclick="closeMobileMenu()">Início</a></li>
                 <li><a href="#menu" onclick="closeMobileMenu()">Cardápio</a></li>
+                <li><a href="#bebidas" onclick="closeMobileMenu()">Bebidas</a></li>
                 <li><a href="#specials" onclick="closeMobileMenu()">Especiais</a></li>
                 <li><a href="#contact" onclick="closeMobileMenu()">Contato</a></li>
             </ul>
@@ -88,6 +89,23 @@
             </div>
         </section>
 
+        <section id="bebidas">
+            <h2>🥤 Bebidas</h2>
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <h3>Coca-Cola 1 Litro</h3>
+                    <p>Refrigerante Coca-Cola garrafa 1L refrescante.</p>
+                    <button class="add-to-cart" onclick="addToCart('Coca-Cola 1L', null, 6.50)">Adicionar R$6,50</button>
+                </div>
+
+                <div class="menu-item">
+                    <h3>Coca-Cola Lata 350ml</h3>
+                    <p>Refrigerante Coca-Cola lata 350ml prática.</p>
+                    <button class="add-to-cart" onclick="addToCart('Coca-Cola Lata', null, 4.50)">Adicionar R$4,50</button>
+                </div>
+            </div>
+        </section>
+
         <section id="specials">
             <h2>🍲 Especiais de Sábado no Almoço</h2>
             <ul class="specials-list">
@@ -117,7 +135,14 @@
     <div id="cart">
         <h3>Carrinho de Compras</h3>
         <div id="cart-items"></div>
+        <div id="delivery-line" class="cart-item" style="display: none;">
+            <span>Taxa de Entrega</span><span>R$ 8,00</span>
+        </div>
         <div id="cart-total">Total: R$ 0,00</div>
+        <div class="delivery-options">
+            <label><input type="radio" name="order-type" value="pickup" checked> Retirada no local: Rua Marajó N: 908, Bairro: Lagoinha</label>
+            <label><input type="radio" name="order-type" value="delivery"> Entrega (R$8,00)</label>
+        </div>
         <button id="checkout-btn" onclick="checkout()">Finalizar Pedido via WhatsApp</button>
         <button onclick="toggleCart()" class="close-cart">Fechar</button>
     </div>

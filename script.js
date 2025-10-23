@@ -46,16 +46,27 @@ function updateCart() {
     const cartItems = document.getElementById('cart-items');
     const totalEl = document.getElementById('cart-total');
     cartItems.innerHTML = '';
-    let total = 0;
+    let subtotal = 0;
 
     cart.forEach((item, index) => {
         const div = document.createElement('div');
         div.classList.add('cart-item');
         div.innerHTML = `<span>${item.name} (${item.size})</span><span>R$ ${item.price.toFixed(2)}</span><button onclick="removeFromCart(${index})">Remover</button>`;
         cartItems.appendChild(div);
-        total += item.price;
+        subtotal += item.price;
     });
 
+    // Lógica para taxa de entrega/retirada
+    const orderType = document.querySelector('input[name="order-type"]:checked').value;
+    const deliveryFee = orderType === 'delivery' ? 8.00 : 0.00;
+    const deliveryLine = document.getElementById('delivery-line');
+    if (orderType === 'delivery') {
+        deliveryLine.style.display = 'flex';
+    } else {
+        deliveryLine.style.display = 'none';
+    }
+
+    const total = subtotal + deliveryFee;
     totalEl.textContent = `Total: R$ ${total.toFixed(2)}`;
 }
 
@@ -76,11 +87,22 @@ function checkout() {
         return;
     }
 
+    const orderType = document.querySelector('input[name="order-type"]:checked').value;
     let message = 'Olá! Gostaria de pedir:\n';
     cart.forEach(item => {
-        message += `- ${item.name} (${item.size}) - R$ ${item.price.toFixed(2)}\n`;
+        message += `- ${item.name} (${item.size || ''}) - R$ ${item.price.toFixed(2)}\n`;
     });
-    message += `\nTotal: R$ ${cart.reduce((sum, item) => sum + item.price, 0).toFixed(2)}\n\nMeu endereço: [insira seu endereço]`;
+
+    const subtotal = cart.reduce((sum, item) => sum + item.price, 0);
+    const deliveryFee = orderType === 'delivery' ? 8.00 : 0.00;
+    const total = subtotal + deliveryFee;
+    message += `\nTotal: R$ ${total.toFixed(2)}`;
+
+    if (orderType === 'pickup') {
+        message += `\n\nRetirada no endereço: Rua Marajó N: 908, Bairro: Lagoinha`;
+    } else {
+        message += `\n\nEndereço para entrega: [insira seu endereço]\nTaxa de entrega: R$ 8,00`;
+    }
 
     const whatsappUrl = `https://wa.me/553499194464?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
@@ -106,6 +128,13 @@ document.addEventListener('click', function(e) {
     if (e.target.classList.contains('size-btn')) {
         e.target.parentElement.querySelectorAll('.size-btn').forEach(btn => btn.classList.remove('selected'));
         e.target.classList.add('selected');
+    }
+});
+
+// Listener para mudança nas opções de entrega/retirada
+document.addEventListener('change', function(e) {
+    if (e.target.name === 'order-type') {
+        updateCart();
     }
 });
 

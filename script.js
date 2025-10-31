@@ -245,3 +245,4 @@ document.getElementById('cart-overlay').addEventListener('click', toggleCart);
 document.addEventListener('DOMContentLoaded', function() {
     updateCart();
 });
+

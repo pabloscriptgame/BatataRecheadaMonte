@@ -72,7 +72,7 @@ function removeFromCart(index) {
     if (confirm('Tem certeza que deseja remover este item?')) {
         cart.splice(index, 1);
         updateCart();
-        showToast('Item removido do carrinho!');
+        showToast('Item removido do carrinho!', 'success');
     }
 }
 
@@ -219,10 +219,10 @@ document.addEventListener('change', function(e) {
         const addressInputs = document.querySelector('.address-inputs');
         if (e.target.value === 'delivery') {
             addressInputs.style.display = 'block';
-            deliveryLine.style.display = 'flex';
+            document.getElementById('delivery-line').style.display = 'flex';
         } else {
             addressInputs.style.display = 'none';
-            deliveryLine.style.display = 'none';
+            document.getElementById('delivery-line').style.display = 'none';
         }
         updateCart();
     }
@@ -245,4 +245,3 @@ document.getElementById('cart-overlay').addEventListener('click', toggleCart);
 document.addEventListener('DOMContentLoaded', function() {
     updateCart();
 });
-

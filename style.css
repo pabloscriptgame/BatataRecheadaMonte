@@ -282,9 +282,21 @@ h2::after {
     box-shadow: var(--shadow-medium);
 }
 
-.menu-icon {
-    font-size: 3rem;
+.menu-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 16px;
+    border: 3px solid transparent;
+    background: linear-gradient(white, white) padding-box, linear-gradient(135deg, var(--primary-gold), var(--accent-gold)) border-box;
+    box-shadow: 0 8px 24px rgba(255, 215, 0, 0.2);
     margin-bottom: 1rem;
+    transition: var(--transition);
+}
+
+.menu-img:hover {
+    transform: scale(1.02);
+    box-shadow: 0 12px 32px rgba(255, 215, 0, 0.3);
 }
 
 .menu-item h3 {
@@ -428,23 +440,26 @@ h2::after {
 
 #cart {
     position: fixed;
-    top: 0;
-    right: -400px;
-    width: 400px;
-    height: 100vh;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    width: 90%;
+    max-width: 500px;
+    max-height: 90vh;
     background: var(--bg-card);
-    box-shadow: -4px 0 20px rgba(255, 215, 0, 0.1);
-    transition: right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: var(--shadow-medium);
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), scale 0.4s ease;
     z-index: 200;
     padding: 2rem;
     overflow-y: auto;
-    display: flex;
+    border-radius: var(--border-radius);
+    display: none;
     flex-direction: column;
-    justify-content: flex-start;
 }
 
 #cart.open {
-    right: 0;
+    display: flex;
+    transform: translate(-50%, -50%) scale(1);
 }
 
 .cart-header {
@@ -788,6 +803,7 @@ footer {
     transform: translateY(-2px);
 }
 
+
 /* Estilos para Notificações (Toasts) */
 
 #toast-container {
@@ -829,6 +845,7 @@ footer {
     background: linear-gradient(135deg, var(--primary-black), #222222);
     color: var(--text-light);
 }
+
 
 /* Mobile Menu Styles */
 
@@ -906,21 +923,8 @@ footer {
         min-width: auto;
     }
     #cart {
-        right: auto;
-        width: 90vw;
-        max-width: 400px;
-        height: auto;
-        max-height: 90vh;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%) translateX(100%);
-        transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        border-radius: var(--border-radius);
+        width: 95%;
         padding: 1.5rem;
-        margin: 0;
-    }
-    #cart.open {
-        transform: translate(-50%, -50%);
     }
     #toast-container {
         right: 10px;
@@ -1007,9 +1011,6 @@ footer {
     .menu-item p {
         font-size: 0.85rem;
     }
-    .menu-icon {
-        font-size: 2.5rem;
-    }
     footer {
         padding: 2rem 1rem;
     }
@@ -1055,6 +1056,7 @@ footer {
     }
 }
 
+
 /* Melhorias para touch devices */
 
 @media (hover: none) and (pointer: coarse) {
@@ -1074,6 +1076,7 @@ footer {
     }
 }
 
+
 /* Ajustes para orientação landscape em mobile */
 
 @media (max-height: 500px) and (orientation: landscape) {
@@ -1087,8 +1090,7 @@ footer {
         padding: 1.5rem 1rem;
     }
     #cart {
-        height: 100vh;
+        height: 90vh;
         max-height: none;
     }
 }
-

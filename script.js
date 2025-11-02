@@ -40,10 +40,12 @@ function closeLightbox(event) {
 // Adicionar zoom no hover/tap para imagem no lightbox
 document.addEventListener('DOMContentLoaded', function() {
     const lightboxImg = document.getElementById('lightbox-img');
-    lightboxImg.addEventListener('click', function(e) {
-        e.stopPropagation(); // Previne fechar ao clicar na img
-        this.style.transform = this.style.transform === 'scale(1.5)' ? 'scale(1)' : 'scale(1.5)';
-    });
+    if (lightboxImg) {
+        lightboxImg.addEventListener('click', function(e) {
+            e.stopPropagation(); // Previne fechar ao clicar na img
+            this.style.transform = this.style.transform === 'scale(1.5)' ? 'scale(1)' : 'scale(1.5)';
+        });
+    }
 });
 
 function showToast(message, type = 'success') {

@@ -20,9 +20,9 @@ function showToast(message, type = 'success') {
 function copyPix() {
     const pixKey = '34999194464';
     navigator.clipboard.writeText(pixKey).then(() => {
-        showToast('Chave PIX copiada!', 'success');
+        showToast('Chave PIX copiada com sucesso!', 'success');
     }).catch(() => {
-        showToast('Erro ao copiar chave PIX.', 'error');
+        showToast('Erro ao copiar chave PIX. Tente novamente.', 'error');
     });
 }
 
@@ -34,7 +34,7 @@ function addToCart(itemName, button, fixedPrice = null) {
     if (sizeButtons) {
         const selectedBtn = Array.from(sizeButtons).find(btn => btn.classList.contains('selected'));
         if (!selectedBtn) {
-            showToast('Selecione um tamanho!', 'error');
+            showToast('Por favor, selecione um tamanho antes de adicionar ao carrinho!', 'error');
             return;
         }
         selectedSize = selectedBtn.dataset.size;
@@ -46,7 +46,7 @@ function addToCart(itemName, button, fixedPrice = null) {
     if (existingItemIndex !== -1) {
         // Incrementa a quantidade
         cart[existingItemIndex].quantity += 1;
-        showToast(`${itemName} ${selectedSize} (quantidade atualizada)!`, 'success');
+        showToast(`${itemName} ${selectedSize} (quantidade atualizada para ${cart[existingItemIndex].quantity})!`, 'success');
     } else {
         // Adiciona novo item com quantidade 1
         cart.push({ name: itemName, size: selectedSize, price: price, quantity: 1 });
@@ -69,10 +69,10 @@ function updateQuantity(index, delta) {
 }
 
 function removeFromCart(index) {
-    if (confirm('Tem certeza que deseja remover este item?')) {
+    if (confirm('Tem certeza que deseja remover este item do carrinho?')) {
         cart.splice(index, 1);
         updateCart();
-        showToast('Item removido do carrinho!', 'success');
+        showToast('Item removido do carrinho com sucesso!', 'success');
     }
 }
 
@@ -134,7 +134,7 @@ function toggleCart() {
 
 function checkout() {
     if (cart.length === 0) {
-        showToast('Carrinho vazio!', 'error');
+        showToast('Seu carrinho está vazio! Adicione itens para continuar.', 'error');
         return;
     }
 
@@ -147,12 +147,12 @@ function checkout() {
         const number = document.getElementById('number').value.trim();
         const neighborhood = document.getElementById('neighborhood').value.trim();
         if (!customerName || !street || !number || !neighborhood) {
-            showToast('Preencha todos os campos de endereço!', 'error');
+            showToast('Preencha todos os campos de endereço para entrega em Monte Carmelo!', 'error');
             return;
         }
     }
 
-    let message = 'Olá! Gostaria de pedir:\n';
+    let message = 'Olá! Gostaria de fazer um pedido na Batata Recheada Monte:\n\n';
     cart.forEach(item => {
         const itemTotal = item.price * item.quantity;
         message += `- ${item.name} (${item.size || ''}) x${item.quantity} - R$ ${itemTotal.toFixed(2)}\n`;
@@ -163,31 +163,33 @@ function checkout() {
     const total = subtotal + deliveryFee;
     message += `\nSubtotal: R$ ${subtotal.toFixed(2)}\n`;
     message += `Taxa de Entrega: R$ ${deliveryFee.toFixed(2)}\n`;
-    message += `Total: R$ ${total.toFixed(2)}`;
+    message += `Total a Pagar: R$ ${total.toFixed(2)}\n\n`;
 
     if (orderType === 'pickup') {
-        message += `\n\nRetirada no endereço: Rua Marajó N: 908, Bairro: Lagoinha`;
+        message += `Tipo de Pedido: Retirada no local\nEndereço: Rua Marajó N: 908, Bairro: Lagoinha, Monte Carmelo - MG\n\n`;
     } else {
         const customerName = document.getElementById('customer-name').value;
         const street = document.getElementById('street').value;
         const number = document.getElementById('number').value;
         const neighborhood = document.getElementById('neighborhood').value;
-        message += `\n\nEndereço para entrega:\nNome: ${customerName}\n${street}, ${number} - ${neighborhood}`;
+        message += `Tipo de Pedido: Entrega\nEndereço:\nNome: ${customerName}\n${street}, ${number} - ${neighborhood}, Monte Carmelo - MG\n\n`;
     }
 
     let paymentText = '';
     if (paymentType === 'dinheiro') {
-        paymentText = '\n\nMétodo de Pagamento: Dinheiro';
+        paymentText = 'Método de Pagamento: Dinheiro (troco disponível)\n';
     } else if (paymentType === 'cartao') {
-        paymentText = '\n\nMétodo de Pagamento: Cartão';
+        paymentText = 'Método de Pagamento: Cartão (Débito/Crédito)\n';
     } else if (paymentType === 'pix') {
-        paymentText = '\n\nMétodo de Pagamento: Pix (Chave: 34999194464)';
+        paymentText = 'Método de Pagamento: Pix (Chave: 34999194464)\n';
     }
     message += paymentText;
 
+    message += 'Aguardo confirmação do pedido! 😊';
+
     const whatsappUrl = `https://wa.me/553499194464?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
-    showToast('Pedido enviado! Verifique o WhatsApp.', 'success');
+    showToast('Pedido enviado para o WhatsApp! Em breve entraremos em contato.', 'success');
     cart = []; // Limpa carrinho após envio
     localStorage.removeItem('cart'); // Remove do localStorage
     updateCart();

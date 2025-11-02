@@ -11,168 +11,190 @@
 
 <body>
     <header>
-        <nav>
+        <nav role="navigation" aria-label="Navegação principal">
             <div class="logo-section">
                 <div class="logo">
                     <img src="https://i.ibb.co/fdQ1Bt4S/20251022-124747.png" alt="Logo Batata Recheada Monte" class="logo-img">
                 </div>
-                <button class="hamburger" onclick="toggleMobileMenu()">≡</button>
+                <button class="hamburger" onclick="toggleMobileMenu()" aria-label="Abrir menu mobile" aria-expanded="false">≡</button>
             </div>
-            <ul class="nav-links" id="nav-links">
-                <li><a href="#hero" onclick="closeMobileMenu()">Início</a></li>
-                <li><a href="#menu" onclick="closeMobileMenu()">Cardápio</a></li>
-                <li><a href="#bebidas" onclick="closeMobileMenu()">Bebidas</a></li>
-                <li><a href="#contact" onclick="closeMobileMenu()">Contato</a></li>
+            <ul class="nav-links" id="nav-links" role="menubar">
+                <li role="none"><a href="#hero" onclick="closeMobileMenu()" role="menuitem">Início</a></li>
+                <li role="none"><a href="#menu" onclick="closeMobileMenu()" role="menuitem">Cardápio</a></li>
+                <li role="none"><a href="#bebidas" onclick="closeMobileMenu()" role="menuitem">Bebidas</a></li>
+                <li role="none"><a href="#contact" onclick="closeMobileMenu()" role="menuitem">Contato</a></li>
             </ul>
         </nav>
     </header>
 
-    <section id="hero">
-        <h1>Bem-vindo(a)</h1>
-        <center>
-            <img src="https://i.ibb.co/DfMRR5hz/20251031-173449-1.jpg" alt="Promoção DêGusto Lanchonete - Hambúrgueres em Monte Carmelo" width="400" height="160">
-        </center>
-        <a href="#menu" class="btn">Ver Cardápio</a>
-        </div>
-    </section>
-
-    <!-- CARDÁPIO -->
-    <section id="menu">
-        <h2>Nosso Cardápio</h2>
-        <div class="menu-grid">
-            <!-- ITEM 1 -->
-            <div class="menu-item">
-                <h3>Carne Seca ao Molho Branco</h3>
-                <img src="https://i.ibb.co/qMkNt06Q/20251031-155022.jpg" alt="Carne Seca" class="menu-img">
-                <p>Carne seca desfiada, molho branco cremoso, mussarela derretida, requeijão, bacon crocante e cebolinha.</p>
-                <div class="size-options">
-                    <button class="size-btn" data-size="500g" data-price="34.00">500g - R$34,00</button>
-                    <button class="size-btn" data-size="750g" data-price="51.00">750g - R$51,00</button>
-                </div>
-                <button class="add-to-cart" onclick="addToCart('Carne Seca ao Molho Branco', this)">Adicionar</button>
+    <main>
+        <section id="hero" aria-labelledby="hero-title">
+            <div class="hero-content">
+                <h1 id="hero-title">Bem-vindo(a)</h1>
+                <figure>
+                    <img src="https://i.ibb.co/DfMRR5hz/20251031-173449-1.jpg" alt="Promoção DêGusto Lanchonete - Hambúrgueres em Monte Carmelo" width="400" height="160" loading="lazy">
+                </figure>
+                <a href="#menu" class="btn" aria-label="Ver Cardápio">Ver Cardápio</a>
             </div>
+        </section>
 
-            <!-- ITEM 2 -->
-            <div class="menu-item">
-                <h3>Bacon ao Molho Branco</h3>
-                <img src="https://i.ibb.co/S4RTd1QF/20251031-162528.jpg" alt="Bacon" class="menu-img">
-                <p>Bacon em cubos, molho branco artesanal, mussarela, requeijão cremoso e toque de cebolinha.</p>
-                <div class="size-options">
-                    <button class="size-btn" data-size="500g" data-price="32.00">500g - R$32,00</button>
-                    <button class="size-btn" data-size="750g" data-price="48.00">750g - R$48,00</button>
-                </div>
-                <button class="add-to-cart" onclick="addToCart('Bacon ao Molho Branco', this)">Adicionar</button>
-            </div>
+        <!-- CARDÁPIO -->
+        <section id="menu" aria-labelledby="menu-title">
+            <h2 id="menu-title">Nosso Cardápio</h2>
+            <div class="menu-grid">
+                <article class="menu-item">
+                    <h3>Carne Seca ao Molho Branco</h3>
+                    <figure class="image-wrapper" onclick="openLightbox('https://i.ibb.co/qMkNt06Q/20251031-155022.jpg')">
+                        <img src="https://i.ibb.co/qMkNt06Q/20251031-155022.jpg" alt="Carne Seca desfiada com molho branco" class="menu-img" loading="lazy">
+                    </figure>
+                    <p>Carne seca desfiada, molho branco cremoso, mussarela derretida, requeijão, bacon crocante e cebolinha.</p>
+                    <div class="size-options">
+                        <button class="size-btn" data-size="500g" data-price="34.00" aria-label="Selecionar 500g por R$34,00">500g - R$34,00</button>
+                        <button class="size-btn" data-size="750g" data-price="51.00" aria-label="Selecionar 750g por R$51,00">750g - R$51,00</button>
+                    </div>
+                    <button class="add-to-cart" onclick="addToCart('Carne Seca ao Molho Branco', this)" aria-label="Adicionar ao carrinho">Adicionar</button>
+                </article>
 
-            <!-- ITEM 3 -->
-            <div class="menu-item">
-                <h3>Frango ao Molho Branco ou Sugo</h3>
-                <img src="https://i.ibb.co/NQYzmBv/20251031-162513.jpg" alt="Frango" class="menu-img">
-                <p>Frango suculento em cubos, escolha seu molho, mussarela, bacon, requeijão e finalização perfeita.</p>
-                <div class="size-options">
-                    <button class="size-btn" data-size="500g" data-price="30.00">500g - R$30,00</button>
-                    <button class="size-btn" data-size="750g" data-price="45.00">750g - R$45,00</button>
-                </div>
-                <button class="add-to-cart" onclick="addToCart('Frango ao Molho Branco ou Sugo', this)">Adicionar</button>
-            </div>
+                <article class="menu-item">
+                    <h3>Bacon ao Molho Branco</h3>
+                    <figure class="image-wrapper" onclick="openLightbox('https://i.ibb.co/S4RTd1QF/20251031-162528.jpg')">
+                        <img src="https://i.ibb.co/S4RTd1QF/20251031-162528.jpg" alt="Bacon em cubos com molho branco" class="menu-img" loading="lazy">
+                    </figure>
+                    <p>Bacon em cubos, molho branco artesanal, mussarela, requeijão cremoso e toque de cebolinha.</p>
+                    <div class="size-options">
+                        <button class="size-btn" data-size="500g" data-price="32.00" aria-label="Selecionar 500g por R$32,00">500g - R$32,00</button>
+                        <button class="size-btn" data-size="750g" data-price="48.00" aria-label="Selecionar 750g por R$48,00">750g - R$48,00</button>
+                    </div>
+                    <button class="add-to-cart" onclick="addToCart('Bacon ao Molho Branco', this)" aria-label="Adicionar ao carrinho">Adicionar</button>
+                </article>
 
-            <!-- ITEM 4 -->
-            <div class="menu-item">
-                <h3>Calabresa ao Molho Branco e Sugo</h3>
-                <img src="https://i.ibb.co/5xJzc1Dg/20251031-162330.jpg" alt="Calabresa" class="menu-img">
-                <p>Calabresa defumada, molho duplo, mussarela, bacon, requeijão e cebolinha picante.</p>
-                <div class="size-options">
-                    <button class="size-btn" data-size="500g" data-price="32.00">500g - R$32,00</button>
-                    <button class="size-btn" data-size="750g" data-price="48.00">750g - R$48,00</button>
-                </div>
-                <button class="add-to-cart" onclick="addToCart('Calabresa ao Molho Branco e Sugo', this)">Adicionar</button>
-            </div>
+                <article class="menu-item">
+                    <h3>Frango ao Molho Branco ou Sugo</h3>
+                    <figure class="image-wrapper" onclick="openLightbox('https://i.ibb.co/NQYzmBv/20251031-162513.jpg')">
+                        <img src="https://i.ibb.co/NQYzmBv/20251031-162513.jpg" alt="Frango suculento em cubos" class="menu-img" loading="lazy">
+                    </figure>
+                    <p>Frango suculento em cubos, escolha seu molho, mussarela, bacon, requeijão e finalização perfeita.</p>
+                    <div class="size-options">
+                        <button class="size-btn" data-size="500g" data-price="30.00" aria-label="Selecionar 500g por R$30,00">500g - R$30,00</button>
+                        <button class="size-btn" data-size="750g" data-price="45.00" aria-label="Selecionar 750g por R$45,00">750g - R$45,00</button>
+                    </div>
+                    <button class="add-to-cart" onclick="addToCart('Frango ao Molho Branco ou Sugo', this)" aria-label="Adicionar ao carrinho">Adicionar</button>
+                </article>
 
-            <!-- ITEM 5 -->
-            <div class="menu-item">
-                <h3>Fraldinha ao Molho Sugo</h3>
-                <img src="https://i.ibb.co/Y4vMD3MM/20251031-162457.jpg" alt="Fraldinha" class="menu-img">
-                <p>Costela desfiada ao molho sugo, mussarela derretida, requeijão, bacon e cebolinha.</p>
-                <div class="size-options">
-                    <button class="size-btn" data-size="500g" data-price="34.00">500g - R$34,00</button>
-                    <button class="size-btn" data-size="750g" data-price="51.00">750g - R$51,00</button>
-                </div>
-                <button class="add-to-cart" onclick="addToCart('Fraldinha ao Molho Sugo', this)">Adicionar</button>
-            </div>
-        </div>
-    </section>
+                <article class="menu-item">
+                    <h3>Calabresa ao Molho Branco e Sugo</h3>
+                    <figure class="image-wrapper" onclick="openLightbox('https://i.ibb.co/5xJzc1Dg/20251031-162330.jpg')">
+                        <img src="https://i.ibb.co/5xJzc1Dg/20251031-162330.jpg" alt="Calabresa defumada com molhos" class="menu-img" loading="lazy">
+                    </figure>
+                    <p>Calabresa defumada, molho duplo, mussarela, bacon, requeijão e cebolinha picante.</p>
+                    <div class="size-options">
+                        <button class="size-btn" data-size="500g" data-price="32.00" aria-label="Selecionar 500g por R$32,00">500g - R$32,00</button>
+                        <button class="size-btn" data-size="750g" data-price="48.00" aria-label="Selecionar 750g por R$48,00">750g - R$48,00</button>
+                    </div>
+                    <button class="add-to-cart" onclick="addToCart('Calabresa ao Molho Branco e Sugo', this)" aria-label="Adicionar ao carrinho">Adicionar</button>
+                </article>
 
-    <!-- BEBIDAS -->
-    <section id="bebidas">
-        <h2>Bebidas</h2>
-        <div class="menu-grid">
-            <div class="menu-item">
-                <h3>Coca-Cola Lata</h3>
-                <img src="https://i.ibb.co/qf5F4vn/20251031-163500.jpg" alt="Coca-Cola" class="menu-img">
-                <p>Refrigerante Coca-Cola 350ml gelado.</p>
-                <button class="add-to-cart" onclick="addToCart('Coca-Cola Lata', null, 5.00)">Adicionar R$5,00</button>
+                <article class="menu-item">
+                    <h3>Fraldinha ao Molho Sugo</h3>
+                    <figure class="image-wrapper" onclick="openLightbox('https://i.ibb.co/Y4vMD3MM/20251031-162457.jpg')">
+                        <img src="https://i.ibb.co/Y4vMD3MM/20251031-162457.jpg" alt="Costela desfiada ao molho sugo" class="menu-img" loading="lazy">
+                    </figure>
+                    <p>Costela desfiada ao molho sugo, mussarela derretida, requeijão, bacon e cebolinha.</p>
+                    <div class="size-options">
+                        <button class="size-btn" data-size="500g" data-price="34.00" aria-label="Selecionar 500g por R$34,00">500g - R$34,00</button>
+                        <button class="size-btn" data-size="750g" data-price="51.00" aria-label="Selecionar 750g por R$51,00">750g - R$51,00</button>
+                    </div>
+                    <button class="add-to-cart" onclick="addToCart('Fraldinha ao Molho Sugo', this)" aria-label="Adicionar ao carrinho">Adicionar</button>
+                </article>
             </div>
-            <div class="menu-item">
-                <h3>Coca-Cola Lata Zero</h3>
-                <img src="https://i.ibb.co/FkS7brzJ/20251031-163524.jpg" alt="Coca-Cola Zero" class="menu-img">
-                <p>Coca-Cola Zero 350ml sem açúcar.</p>
-                <button class="add-to-cart" onclick="addToCart('Coca-Cola Lata Zero', null, 5.00)">Adicionar R$5,00</button>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <footer id="contact">
+        <!-- BEBIDAS -->
+        <section id="bebidas" aria-labelledby="bebidas-title">
+            <h2 id="bebidas-title">Bebidas</h2>
+            <div class="menu-grid">
+                <article class="menu-item">
+                    <h3>Coca-Cola Lata</h3>
+                    <figure class="image-wrapper" onclick="openLightbox('https://i.ibb.co/qf5F4vn/20251031-163500.jpg')">
+                        <img src="https://i.ibb.co/qf5F4vn/20251031-163500.jpg" alt="Refrigerante Coca-Cola 350ml" class="menu-img" loading="lazy">
+                    </figure>
+                    <p>Refrigerante Coca-Cola 350ml gelado.</p>
+                    <button class="add-to-cart" onclick="addToCart('Coca-Cola Lata', null, 5.00)" aria-label="Adicionar Coca-Cola Lata por R$5,00">Adicionar R$5,00</button>
+                </article>
+                <article class="menu-item">
+                    <h3>Coca-Cola Lata Zero</h3>
+                    <figure class="image-wrapper" onclick="openLightbox('https://i.ibb.co/FkS7brzJ/20251031-163524.jpg')">
+                        <img src="https://i.ibb.co/FkS7brzJ/20251031-163524.jpg" alt="Coca-Cola Zero 350ml sem açúcar" class="menu-img" loading="lazy">
+                    </figure>
+                    <p>Coca-Cola Zero 350ml sem açúcar.</p>
+                    <button class="add-to-cart" onclick="addToCart('Coca-Cola Lata Zero', null, 5.00)" aria-label="Adicionar Coca-Cola Zero por R$5,00">Adicionar R$5,00</button>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer id="contact" aria-labelledby="contact-title">
+        <h2 id="contact-title" class="sr-only">Contato</h2>
         <div class="social-links">
-            <a href="https://wa.me/553499194464" target="_blank">📱 WhatsApp: (34) 9.9919-4464</a>
-            <a href="https://www.instagram.com/batatarecheadamonte" target="_blank">📸 Instagram</a>
+            <a href="https://wa.me/553499194464" target="_blank" rel="noopener" aria-label="WhatsApp (34) 9.9919-4464">📱 WhatsApp: (34) 9.9919-4464</a>
+            <a href="https://www.instagram.com/batatarecheadamonte" target="_blank" rel="noopener" aria-label="Instagram Batata Recheada Monte">📸 Instagram</a>
         </div>
         <p>&copy; 2025 Batata Recheada Monte. Todos os direitos reservados.</p>
     </footer>
 
     <!-- Carrinho Modal -->
-    <button id="cart-toggle" onclick="toggleCart()">
-        <span>🛒</span>
-        <span class="cart-count" id="cart-count">0</span>
-    </button>
-    <div id="cart">
-        <div class="cart-header">
-            <h3>Carrinho de Compras</h3>
-            <button onclick="toggleCart()" class="close-cart-header">×</button>
+    <aside id="cart-aside" role="dialog" aria-modal="true" aria-labelledby="cart-title" aria-hidden="true">
+        <button id="cart-toggle" onclick="toggleCart()" aria-label="Abrir carrinho">
+            <span>🛒</span>
+            <span class="cart-count" id="cart-count" aria-live="polite">0</span>
+        </button>
+        <div id="cart" class="cart-modal">
+            <div class="cart-header">
+                <h3 id="cart-title">Carrinho de Compras</h3>
+                <button onclick="toggleCart()" class="close-cart-header" aria-label="Fechar carrinho">×</button>
+            </div>
+            <div id="cart-items" aria-live="polite"></div>
+            <div id="delivery-line" class="cart-item" style="display: none;">
+                <span>Taxa de Entrega</span><span>R$ 8,00</span>
+            </div>
+            <div id="cart-total" class="cart-total">Total: R$ 0,00</div>
+            <div class="delivery-options">
+                <h4>Opções de Entrega</h4>
+                <label><input type="radio" name="order-type" value="pickup" checked aria-label="Retirada no local"> Retirada no local: Rua Marajó N: 908, Bairro: Lagoinha</label>
+                <label><input type="radio" name="order-type" value="delivery" aria-label="Entrega com taxa R$8,00"> Entrega (R$8,00)</label>
+            </div>
+            <fieldset class="address-inputs" style="display: none;">
+                <legend>Endereço de Entrega</legend>
+                <input type="text" id="customer-name" placeholder="Nome Completo" aria-label="Nome Completo">
+                <input type="text" id="street" placeholder="Rua/Avenida" aria-label="Rua ou Avenida">
+                <input type="text" id="number" placeholder="Número" aria-label="Número da residência">
+                <input type="text" id="neighborhood" placeholder="Bairro" aria-label="Bairro">
+            </fieldset>
+            <div class="payment-options">
+                <h4>Método de Pagamento</h4>
+                <label><input type="radio" name="payment-type" value="dinheiro" checked aria-label="Pagamento em Dinheiro"> 💵 Dinheiro</label>
+                <label><input type="radio" name="payment-type" value="cartao" aria-label="Pagamento em Cartão"> 💳 Cartão</label>
+                <label class="pix-label"><input type="radio" name="payment-type" value="pix" aria-label="Pagamento via Pix"> 💰 Pix 
+                    <span class="pix-key">Chave: 34999194464</span>
+                    <button class="copy-pix-btn" onclick="copyPix()" aria-label="Copiar chave PIX">📋 Copiar</button>
+                </label>
+            </div>
+            <button id="checkout-btn" onclick="checkout()" aria-label="Finalizar Pedido via WhatsApp">Finalizar Pedido via WhatsApp</button>
         </div>
-        <div id="cart-items"></div>
-        <div id="delivery-line" class="cart-item" style="display: none;">
-            <span>Taxa de Entrega</span><span>R$ 8,00</span>
-        </div>
-        <div id="cart-total" class="cart-total">Total: R$ 0,00</div>
-        <div class="delivery-options">
-            <h4>Opções de Entrega</h4>
-            <label><input type="radio" name="order-type" value="pickup" checked> Retirada no local: Rua Marajó N: 908, Bairro: Lagoinha</label>
-            <label><input type="radio" name="order-type" value="delivery"> Entrega (R$8,00)</label>
-        </div>
-        <div class="address-inputs" style="display: none;">
-            <h4>Endereço de Entrega</h4>
-            <input type="text" id="customer-name" placeholder="Nome Completo">
-            <input type="text" id="street" placeholder="Rua/Avenida">
-            <input type="text" id="number" placeholder="Número">
-            <input type="text" id="neighborhood" placeholder="Bairro">
-        </div>
-        <div class="payment-options">
-            <h4>Método de Pagamento</h4>
-            <label><input type="radio" name="payment-type" value="dinheiro" checked> 💵 Dinheiro</label>
-            <label><input type="radio" name="payment-type" value="cartao"> 💳 Cartão</label>
-            <label class="pix-label"><input type="radio" name="payment-type" value="pix"> 💰 Pix 
-                <span class="pix-key">Chave: 34999194464</span>
-                <button class="copy-pix-btn" onclick="copyPix()">📋 Copiar</button>
-            </label>
-        </div>
-        <button id="checkout-btn" onclick="checkout()">Finalizar Pedido via WhatsApp</button>
-    </div>
+    </aside>
 
     <!-- Overlay para carrinho -->
-    <div id="cart-overlay" class="overlay"></div>
+    <div id="cart-overlay" class="overlay" onclick="toggleCart()" aria-hidden="true"></div>
+
+    <!-- Lightbox Modal para Zoom de Imagens -->
+    <div id="lightbox" class="lightbox" onclick="closeLightbox(event)">
+        <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+        <img id="lightbox-img" src="" alt="Imagem ampliada">
+        <div class="lightbox-caption" id="lightbox-caption"></div>
+    </div>
 
     <!-- Container para Notificações (Toasts) -->
-    <div id="toast-container"></div>
+    <div id="toast-container" aria-live="polite" aria-atomic="true"></div>
 
     <script src="script.js"></script>
 </body>

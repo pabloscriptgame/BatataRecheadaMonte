@@ -1,16 +1,60 @@
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
+let debounceTimer;
+
+// Debounce utilitário para updates frequentes em mobile
+function debounce(func, delay) {
+    return function(...args) {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => func.apply(this, args), delay);
+    };
+}
+
+const debouncedUpdateCart = debounce(updateCart, 150);
+
+// Funções para Lightbox (Zoom de Imagens)
+function openLightbox(imageSrc, caption = '') {
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxCaption = document.getElementById('lightbox-caption');
+
+    lightboxImg.src = imageSrc;
+    lightboxCaption.textContent = caption;
+    lightbox.style.display = 'flex';
+    document.body.style.overflow = 'hidden'; // Previne scroll no fundo
+    lightboxImg.style.transform = 'scale(0)';
+    setTimeout(() => lightboxImg.style.transform = 'scale(1)', 10);
+}
+
+function closeLightbox(event) {
+    if (event && event.target.id !== 'lightbox-img') {
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        lightboxImg.style.transform = 'scale(0)';
+        setTimeout(() => {
+            lightbox.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }, 300);
+    }
+}
+
+// Adicionar zoom no hover/tap para imagem no lightbox
+document.addEventListener('DOMContentLoaded', function() {
+    const lightboxImg = document.getElementById('lightbox-img');
+    lightboxImg.addEventListener('click', function(e) {
+        e.stopPropagation(); // Previne fechar ao clicar na img
+        this.style.transform = this.style.transform === 'scale(1.5)' ? 'scale(1)' : 'scale(1.5)';
+    });
+});
 
 function showToast(message, type = 'success') {
     const container = document.getElementById('toast-container');
     const toast = document.createElement('div');
     toast.classList.add('toast', type);
     toast.textContent = message;
+    toast.setAttribute('role', 'alert');
     container.appendChild(toast);
 
-    // Mostra o toast
     setTimeout(() => toast.classList.add('show'), 100);
-
-    // Remove após 3 segundos
     setTimeout(() => {
         toast.classList.remove('show');
         setTimeout(() => container.removeChild(toast), 300);
@@ -27,8 +71,8 @@ function copyPix() {
 }
 
 function addToCart(itemName, button, fixedPrice = null) {
-    const sizeButtons = button ? button.parentElement.querySelectorAll('.size-btn') : null;
-    let selectedSize = 'Padrão'; // Default para itens sem tamanho
+    const sizeButtons = button ? button.closest('.menu-item').querySelectorAll('.size-btn') : null;
+    let selectedSize = 'Padrão';
     let price = fixedPrice || 0;
 
     if (sizeButtons) {
@@ -41,20 +85,17 @@ function addToCart(itemName, button, fixedPrice = null) {
         price = parseFloat(selectedBtn.dataset.price);
     }
 
-    // Verifica se o item já existe no carrinho (mesmo nome e tamanho)
     const existingItemIndex = cart.findIndex(item => item.name === itemName && item.size === selectedSize);
     if (existingItemIndex !== -1) {
-        // Incrementa a quantidade
         cart[existingItemIndex].quantity += 1;
         showToast(`${itemName} ${selectedSize} (quantidade atualizada)!`, 'success');
     } else {
-        // Adiciona novo item com quantidade 1
         cart.push({ name: itemName, size: selectedSize, price: price, quantity: 1 });
         showToast(`${itemName} ${selectedSize} adicionado ao carrinho!`, 'success');
     }
 
-    updateCart();
-    if (sizeButtons) {
+    debouncedUpdateCart();
+    if (sizeButtons && selectedBtn) {
         sizeButtons.forEach(btn => btn.classList.remove('selected'));
         selectedBtn.classList.add('selected');
     }
@@ -63,15 +104,15 @@ function addToCart(itemName, button, fixedPrice = null) {
 function updateQuantity(index, delta) {
     cart[index].quantity += delta;
     if (cart[index].quantity <= 0) {
-        cart.splice(index, 1); // Remove se quantidade for 0 ou negativa
+        cart.splice(index, 1);
     }
-    updateCart();
+    debouncedUpdateCart();
 }
 
 function removeFromCart(index) {
     if (confirm('Tem certeza que deseja remover este item?')) {
         cart.splice(index, 1);
-        updateCart();
+        debouncedUpdateCart();
         showToast('Item removido do carrinho!', 'success');
     }
 }
@@ -94,31 +135,25 @@ function updateCart() {
                 <span class="item-name">${item.name}</span>
                 <span class="item-size">(${item.size})</span>
                 <div class="quantity-controls">
-                    <button class="qty-btn" onclick="updateQuantity(${index}, -1)">−</button>
-                    <span class="qty-display">${item.quantity}</span>
-                    <button class="qty-btn" onclick="updateQuantity(${index}, 1)">+</button>
+                    <button class="qty-btn" onclick="updateQuantity(${index}, -1)" aria-label="Diminuir quantidade">−</button>
+                    <span class="qty-display" aria-label="Quantidade atual">${item.quantity}</span>
+                    <button class="qty-btn" onclick="updateQuantity(${index}, 1)" aria-label="Aumentar quantidade">+</button>
                 </div>
             </div>
             <div class="item-price">
                 <span class="item-subtotal">R$ ${itemSubtotal.toFixed(2)}</span>
-                <button class="remove-btn" onclick="removeFromCart(${index})">Remover</button>
+                <button class="remove-btn" onclick="removeFromCart(${index})" aria-label="Remover item">Remover</button>
             </div>
         `;
         cartItems.appendChild(div);
     });
 
-    // Salva no localStorage
     localStorage.setItem('cart', JSON.stringify(cart));
 
-    // Lógica para taxa de entrega/retirada
     const orderType = document.querySelector('input[name="order-type"]:checked').value;
     const deliveryFee = orderType === 'delivery' ? 8.00 : 0.00;
     const deliveryLine = document.getElementById('delivery-line');
-    if (orderType === 'delivery') {
-        deliveryLine.style.display = 'flex';
-    } else {
-        deliveryLine.style.display = 'none';
-    }
+    deliveryLine.style.display = orderType === 'delivery' ? 'flex' : 'none';
 
     const total = subtotal + deliveryFee;
     totalEl.textContent = `Total: R$ ${total.toFixed(2)}`;
@@ -128,8 +163,12 @@ function updateCart() {
 function toggleCart() {
     const cartEl = document.getElementById('cart');
     const overlay = document.getElementById('cart-overlay');
+    const aside = document.getElementById('cart-aside');
+    const isOpen = cartEl.classList.contains('open');
     cartEl.classList.toggle('open');
     overlay.classList.toggle('show');
+    aside.setAttribute('aria-hidden', isOpen ? 'true' : 'false');
+    document.querySelector('.hamburger').setAttribute('aria-expanded', !isOpen);
 }
 
 function checkout() {
@@ -142,11 +181,9 @@ function checkout() {
     const paymentType = document.querySelector('input[name="payment-type"]:checked').value;
 
     if (orderType === 'delivery') {
-        const customerName = document.getElementById('customer-name').value.trim();
-        const street = document.getElementById('street').value.trim();
-        const number = document.getElementById('number').value.trim();
-        const neighborhood = document.getElementById('neighborhood').value.trim();
-        if (!customerName || !street || !number || !neighborhood) {
+        const fields = ['customer-name', 'street', 'number', 'neighborhood'];
+        const missing = fields.find(id => !document.getElementById(id).value.trim());
+        if (missing) {
             showToast('Preencha todos os campos de endereço!', 'error');
             return;
         }
@@ -188,8 +225,8 @@ function checkout() {
     const whatsappUrl = `https://wa.me/553499194464?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
     showToast('Pedido enviado! Verifique o WhatsApp.', 'success');
-    cart = []; // Limpa carrinho após envio
-    localStorage.removeItem('cart'); // Remove do localStorage
+    cart = [];
+    localStorage.removeItem('cart');
     updateCart();
     toggleCart();
 }
@@ -197,33 +234,32 @@ function checkout() {
 // Funções para Menu Mobile
 function toggleMobileMenu() {
     const navLinks = document.getElementById('nav-links');
+    const hamburger = document.querySelector('.hamburger');
     navLinks.classList.toggle('active');
+    hamburger.setAttribute('aria-expanded', navLinks.classList.contains('active'));
 }
 
 function closeMobileMenu() {
     const navLinks = document.getElementById('nav-links');
     navLinks.classList.remove('active');
+    document.querySelector('.hamburger').setAttribute('aria-expanded', 'false');
 }
 
-// Seleção de tamanho
+// Event Listeners (Event Delegation para performance)
 document.addEventListener('click', function(e) {
     if (e.target.classList.contains('size-btn')) {
-        e.target.parentElement.querySelectorAll('.size-btn').forEach(btn => btn.classList.remove('selected'));
+        const sizeButtons = e.target.parentElement.querySelectorAll('.size-btn');
+        sizeButtons.forEach(btn => btn.classList.remove('selected'));
         e.target.classList.add('selected');
     }
 });
 
-// Listener para mudança nas opções de entrega/retirada
 document.addEventListener('change', function(e) {
     if (e.target.name === 'order-type') {
         const addressInputs = document.querySelector('.address-inputs');
-        if (e.target.value === 'delivery') {
-            addressInputs.style.display = 'block';
-            document.getElementById('delivery-line').style.display = 'flex';
-        } else {
-            addressInputs.style.display = 'none';
-            document.getElementById('delivery-line').style.display = 'none';
-        }
+        const isDelivery = e.target.value === 'delivery';
+        addressInputs.style.display = isDelivery ? 'block' : 'none';
+        document.getElementById('delivery-line').style.display = isDelivery ? 'flex' : 'none';
         updateCart();
     }
 });
@@ -235,11 +271,9 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         document.querySelector(this.getAttribute('href')).scrollIntoView({
             behavior: 'smooth'
         });
+        closeMobileMenu();
     });
 });
-
-// Fechar carrinho ao clicar no overlay
-document.getElementById('cart-overlay').addEventListener('click', toggleCart);
 
 // Inicializa o carrinho ao carregar a página
 document.addEventListener('DOMContentLoaded', function() {

@@ -76,6 +76,17 @@ function removeFromCart(index) {
     }
 }
 
+function toggleTrocoField() {
+    const paymentType = document.querySelector('input[name="payment-type"]:checked').value;
+    const trocoField = document.getElementById('troco-field');
+    if (paymentType === 'dinheiro') {
+        trocoField.style.display = 'block';
+    } else {
+        trocoField.style.display = 'none';
+        document.getElementById('troco-value').value = '';
+    }
+}
+
 function updateCart() {
     const cartItems = document.getElementById('cart-items');
     const totalEl = document.getElementById('cart-total');
@@ -177,7 +188,12 @@ function checkout() {
 
     let paymentText = '';
     if (paymentType === 'dinheiro') {
-        paymentText = 'Método de Pagamento: Dinheiro (troco disponível)\n';
+        const trocoValue = document.getElementById('troco-value').value;
+        paymentText = `Método de Pagamento: Dinheiro (troco disponível)`;
+        if (trocoValue) {
+            paymentText += `\nTroco para: R$ ${parseFloat(trocoValue).toFixed(2)}`;
+        }
+        paymentText += `\n`;
     } else if (paymentType === 'cartao') {
         paymentText = 'Método de Pagamento: Cartão (Débito/Crédito)\n';
     } else if (paymentType === 'pix') {
@@ -230,6 +246,13 @@ document.addEventListener('change', function(e) {
     }
 });
 
+// Listener para toggle troco no pagamento
+document.addEventListener('change', function(e) {
+    if (e.target.name === 'payment-type') {
+        toggleTrocoField();
+    }
+});
+
 // Scroll suave para links de navegação
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
@@ -246,4 +269,5 @@ document.getElementById('cart-overlay').addEventListener('click', toggleCart);
 // Inicializa o carrinho ao carregar a página
 document.addEventListener('DOMContentLoaded', function() {
     updateCart();
+    toggleTrocoField(); // Inicializa o campo de troco
 });

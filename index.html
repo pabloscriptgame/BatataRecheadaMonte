@@ -162,12 +162,16 @@
         </div>
         <div class="payment-options">
             <h4>Método de Pagamento</h4>
-            <label><input type="radio" name="payment-type" value="dinheiro" checked> 💵 Dinheiro (troco disponível)</label>
-            <label><input type="radio" name="payment-type" value="cartao"> 💳 Cartão (Débito/Crédito)</label>
-            <label class="pix-label"><input type="radio" name="payment-type" value="pix"> 💰 Pix 
+            <label><input type="radio" name="payment-type" value="dinheiro" checked onchange="toggleTrocoField()"> 💵 Dinheiro (troco disponível)</label>
+            <label><input type="radio" name="payment-type" value="cartao" onchange="toggleTrocoField()"> 💳 Cartão (Débito/Crédito)</label>
+            <label class="pix-label"><input type="radio" name="payment-type" value="pix" onchange="toggleTrocoField()"> 💰 Pix 
                 <span class="pix-key">Chave: 34999194464</span>
                 <button class="copy-pix-btn" onclick="copyPix()">📋 Copiar</button>
             </label>
+            <div id="troco-field" class="troco-inputs" style="display: none; margin-top: 1rem; padding: 1rem; background: rgba(255, 215, 0, 0.05); border-radius: 8px;">
+                <label>Troco para quanto? (R$)</label>
+                <input type="number" id="troco-value" placeholder="Ex: 50.00" step="0.01" min="0">
+            </div>
         </div>
         <button id="checkout-btn" onclick="checkout()">Finalizar Pedido via WhatsApp</button>
     </div>

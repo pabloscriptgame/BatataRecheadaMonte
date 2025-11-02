@@ -694,6 +694,31 @@ h2::after {
     transform: scale(1.05);
 }
 
+.troco-inputs label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--primary-gold);
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+#troco-value {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid rgba(218, 165, 32, 0.1);
+    border-radius: 8px;
+    font-size: 1rem;
+    background: var(--bg-card);
+    color: var(--text-light);
+    transition: var(--transition);
+}
+
+#troco-value:focus {
+    outline: none;
+    border-color: var(--primary-gold);
+    box-shadow: 0 0 0 2px rgba(218, 165, 32, 0.1);
+}
+
 .address-inputs input {
     width: 100%;
     padding: 0.75rem;
@@ -985,6 +1010,12 @@ footer {
     h2 {
         font-size: 2rem;
         margin-bottom: 1.5rem;
+    }
+    .troco-inputs {
+        padding: 0.75rem;
+    }
+    #troco-value {
+        font-size: 16px;
     }
 }
 

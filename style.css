@@ -550,32 +550,27 @@ nav {
 }
 
 #hero {
-    background: linear-gradient(135deg, rgba(90, 74, 58, 0.95), rgba(10, 10, 10, 0.9)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle fill="%23FFD700" opacity="0.3" cx="20" cy="20" r="2"/><circle fill="%23DAA520" opacity="0.3" cx="80" cy="80" r="3"/><circle fill="%235a4a3a" opacity="0.2" cx="50" cy="50" r="1"/><line stroke="%23FFD700" stroke-width="1" opacity="0.4" x1="10" y1="10" x2="90" y2="90"/></svg>') repeat;
-    padding: 6rem 2rem 4rem;
+    background: linear-gradient(135deg, rgba(90, 74, 58, 0.95), rgba(42, 34, 24, 0.9)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle fill="%23FFD700" opacity="0.1" cx="20" cy="20" r="2"/><circle fill="%23DAA520" opacity="0.1" cx="80" cy="80" r="3"/><line stroke="%23FFD700" stroke-width="1" opacity="0.2" x1="10" y1="10" x2="90" y2="90"/></svg>') center/cover;
+    padding: 6rem 2rem 5rem;
     text-align: center;
     color: var(--text-light);
 }
 
-.hero-content {
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-#hero h1 {
+.hero-content h1 {
     font-size: 3.5rem;
     font-weight: 700;
     margin-bottom: 1.5rem;
-    color: var(--primary-gold);
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    background: linear-gradient(135deg, var(--primary-gold), var(--accent-gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
-#hero p {
-    font-size: 1.2rem;
-    margin-bottom: 2rem;
-    opacity: 0.9;
+.hero-content p {
+    font-size: 1.3rem;
     max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 0 auto 2rem;
+    opacity: 0.9;
 }
 
 .btn {
@@ -599,40 +594,54 @@ section {
     padding: 4rem 2rem;
     max-width: 1200px;
     margin: 0 auto;
+    background: var(--bg-card);
+    border-radius: var(--border-radius);
+    margin-bottom: 3rem;
+    box-shadow: var(--shadow-light);
+    border-left: 4px solid var(--mocha-mousse);
+    position: relative;
+    overflow: hidden;
+}
+
+section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(135deg, var(--primary-gold), var(--accent-gold));
 }
 
 h2 {
-    font-size: 2.8rem;
     text-align: center;
+    font-size: 2.8rem;
     margin-bottom: 3rem;
-    color: var(--accent-gold);
+    color: var(--text-light);
     position: relative;
 }
 
 h2::after {
     content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
+    display: block;
     width: 80px;
     height: 3px;
     background: linear-gradient(135deg, var(--primary-gold), var(--accent-gold));
+    margin: 1rem auto 0;
     border-radius: 2px;
 }
 
 .menu-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 2.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
 }
 
 .menu-item {
-    background: var(--bg-card);
-    padding: 2rem;
+    background: linear-gradient(145deg, var(--bg-dark), var(--bg-card));
     border-radius: var(--border-radius);
+    padding: 2rem;
     text-align: center;
-    box-shadow: var(--shadow-light);
     transition: var(--transition);
     border: 1px solid rgba(255, 215, 0, 0.1);
     position: relative;
@@ -643,14 +652,19 @@ h2::after {
     content: '';
     position: absolute;
     top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(135deg, var(--primary-gold), var(--accent-gold));
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.05), transparent);
+    transition: left 0.5s;
+}
+
+.menu-item:hover::before {
+    left: 100%;
 }
 
 .menu-item:hover {
-    transform: translateY(-8px);
+    transform: translateY(-5px);
     box-shadow: var(--shadow-medium);
 }
 
@@ -671,8 +685,7 @@ h2::after {
 }
 
 .menu-item p {
-    color: var(--text-light);
-    opacity: 0.8;
+    color: #CCCCCC;
     margin-bottom: 1.5rem;
     line-height: 1.5;
 }
@@ -682,6 +695,7 @@ h2::after {
     gap: 1rem;
     justify-content: center;
     margin-bottom: 1.5rem;
+    flex-wrap: wrap;
 }
 
 .size-btn {
@@ -689,31 +703,33 @@ h2::after {
     color: var(--text-light);
     border: 1px solid rgba(255, 215, 0, 0.3);
     padding: 0.75rem 1.5rem;
-    border-radius: 25px;
+    border-radius: 8px;
     cursor: pointer;
     transition: var(--transition);
     font-size: 0.95rem;
     min-width: 120px;
+    touch-action: manipulation;
 }
 
 .size-btn:hover,
 .size-btn.selected {
-    background: var(--primary-gold);
+    background: linear-gradient(135deg, var(--primary-gold), var(--accent-gold));
     color: var(--primary-black);
-    transform: scale(1.05);
+    transform: scale(1.02);
 }
 
 .add-to-cart {
-    background: linear-gradient(135deg, var(--primary-gold), var(--accent-gold));
+    background: linear-gradient(135deg, var(--mocha-mousse), var(--accent-gold));
     color: var(--primary-black);
     border: none;
     padding: 1rem 2rem;
     border-radius: var(--border-radius);
     cursor: pointer;
+    font-size: 1rem;
     font-weight: 600;
     transition: var(--transition);
     width: 100%;
-    font-size: 1rem;
+    touch-action: manipulation;
 }
 
 .add-to-cart:hover {
@@ -723,23 +739,22 @@ h2::after {
 
 #cart-toggle {
     position: fixed;
-    top: 20px;
+    top: 100px;
     right: 20px;
     background: linear-gradient(135deg, var(--primary-gold), var(--accent-gold));
     color: var(--primary-black);
     border: none;
-    width: 60px;
-    height: 60px;
+    padding: 1rem;
     border-radius: 50%;
     cursor: pointer;
     font-size: 1.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
     box-shadow: var(--shadow-medium);
     z-index: 200;
     transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    touch-action: manipulation;
 }
 
 #cart-toggle:hover {
@@ -750,38 +765,30 @@ h2::after {
     background: var(--primary-black);
     color: var(--text-light);
     border-radius: 50%;
-    width: 24px;
-    height: 24px;
+    padding: 0.25rem 0.5rem;
     font-size: 0.8rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    min-width: 20px;
+    text-align: center;
 }
 
 #cart {
     position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0.8);
-    width: 90%;
-    max-width: 500px;
-    height: auto;
-    max-height: 90vh;
-    background: var(--bg-dark);
-    box-shadow: var(--shadow-medium);
-    z-index: 201;
-    transition: all 0.3s ease;
+    top: 0;
+    right: -100%;
+    width: 400px;
+    height: 100vh;
+    background: var(--bg-card);
+    box-shadow: -5px 0 20px rgba(0, 0, 0, 0.5);
+    z-index: 200;
+    transition: right 0.3s ease;
     overflow-y: auto;
     padding: 2rem;
-    border-radius: var(--border-radius);
-    opacity: 0;
-    visibility: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
 #cart.open {
-    transform: translate(-50%, -50%) scale(1);
-    opacity: 1;
-    visibility: visible;
+    right: 0;
 }
 
 .cart-header {
@@ -794,8 +801,8 @@ h2::after {
 }
 
 .cart-header h3 {
-    color: var(--accent-gold);
-    font-weight: 600;
+    color: var(--text-light);
+    font-size: 1.5rem;
 }
 
 .close-cart-header {
@@ -822,14 +829,13 @@ h2::after {
 }
 
 .item-info {
-    flex: 1;
-    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }
 
 .item-name {
-    display: block;
-    font-weight: 400;
-    /* Mais fina */
+    font-weight: 500;
     color: var(--text-light);
 }
 

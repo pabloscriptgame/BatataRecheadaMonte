@@ -26,6 +26,33 @@ function copyPix() {
     });
 }
 
+function shareSite() {
+    const shareData = {
+        title: 'Batata Recheada Monte',
+        text: 'Descubra as melhores batatas recheadas em Monte Carmelo, MG! Delivery delicioso e rápido. Peça agora!',
+        url: window.location.href
+    };
+
+    if (navigator.share && navigator.canShare && navigator.canShare(shareData)) {
+        navigator.share(shareData).catch((error) => {
+            console.log('Erro ao compartilhar:', error);
+            fallbackShare();
+        });
+    } else {
+        fallbackShare();
+    }
+}
+
+function fallbackShare() {
+    const url = window.location.href;
+    navigator.clipboard.writeText(url).then(() => {
+        showToast('URL do site copiada! Compartilhe com amigos.', 'success');
+    }).catch(() => {
+        // Ultimate fallback: alert with URL
+        showToast(`Copie este link para compartilhar: ${url}`, 'info');
+    });
+}
+
 function addToCart(itemName, button, fixedPrice = null) {
     const sizeButtons = button ? button.parentElement.querySelectorAll('.size-btn') : null;
     let selectedSize = 'Padrão'; // Default para itens sem tamanho

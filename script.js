@@ -1,5 +1,34 @@
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
+// Função melhorada: Detecção de mobile mais robusta para todos os tipos de celulares (Samsung, Motorola, iPhone, etc.)
+// Usa matchMedia + UA para precisão, abre menu em telas muito pequenas e carrinho se vazio, com delay suave
+function detectAndAutoOpen() {
+    const isMobile = window.matchMedia('(max-width: 768px)').matches || /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase());
+    const userAgent = navigator.userAgent.toLowerCase();
+    const isSamsung = /samsung|sm-/i.test(userAgent);
+    const isMotorola = /motorola|xt/i.test(userAgent);
+    const isIPhone = /iphone/i.test(userAgent);
+    const isGenericMobile = /mobile/i.test(userAgent);
+
+    if (isMobile || isGenericMobile) {
+        console.log('Dispositivo móvel detectado e ajustado para abertura automática.');
+        // Para telas muito pequenas (ex.: <480px), abre menu mobile com delay
+        if (window.innerWidth < 480) {
+            setTimeout(() => {
+                toggleMobileMenu();
+                showToast('Menu aberto para navegação fácil no celular!', 'info');
+            }, 800);
+        }
+        // Se carrinho vazio, abre automaticamente para incentivar pedido (após carregamento)
+        if (cart.length === 0) {
+            setTimeout(() => {
+                toggleCart();
+                showToast('Carrinho pronto para seu pedido delicioso!', 'success');
+            }, 1200);
+        }
+    }
+}
+
 function showToast(message, type = 'success') {
     const container = document.getElementById('toast-container');
     const toast = document.createElement('div');
@@ -297,4 +326,5 @@ document.getElementById('cart-overlay').addEventListener('click', toggleCart);
 document.addEventListener('DOMContentLoaded', function() {
     updateCart();
     toggleTrocoField(); // Inicializa o campo de troco
+    detectAndAutoOpen(); // Ativa a detecção melhorada para abertura automática em todos os celulares
 });

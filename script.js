@@ -20,12 +20,7 @@ function detectAndAutoOpen() {
             }, 800);
         }
         // Se carrinho vazio, abre automaticamente para incentivar pedido (após carregamento)
-        if (cart.length === 0) {
-            setTimeout(() => {
-                toggleCart();
-                showToast('Carrinho pronto para seu pedido delicioso!', 'success');
-            }, 1200);
-        }
+        // REMOVIDO: toggleCart(); - Agora o carrinho só abre no botão
     }
 }
 

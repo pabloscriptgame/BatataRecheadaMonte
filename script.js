@@ -1,143 +1,190 @@
+// Cart e Dados (Persistência com localStorage e IndexedDB fallback)
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
+const menuItems = [{
+        name: 'Carne Seca ao Molho Branco',
+        img: 'https://i.ibb.co/qMkNt06Q/20251031-155022.jpg',
+        desc: 'Carne seca desfiada, molho branco cremoso, mussarela derretida, requeijão, bacon crocante e cebolinha. Perfeita para quem ama sabores intensos!',
+        sizes: [{ size: '500g', price: 34.00 }, { size: '750g', price: 51.00 }]
+    },
+    {
+        name: 'Bacon ao Molho Branco',
+        img: 'https://i.ibb.co/S4RTd1QF/20251031-162528.jpg',
+        desc: 'Bacon em cubos, molho branco artesanal, mussarela, requeijão cremoso e toque de cebolinha. Crocante e cremoso na medida certa!',
+        sizes: [{ size: '500g', price: 25.00 }, { size: '750g', price: 38.00 }]
+    },
+    {
+        name: 'Frango ao Molho Branco ou Sugo',
+        img: 'https://i.ibb.co/NQYzmBv/20251031-162513.jpg',
+        desc: 'Frango em cubos ao nosso delicioso molho branco artesanal, servido na batata inglesa cozida, com queijo mussarela derretido, bacon em cubos, requeijão cremoso de pote e cebolinha. Opção leve e saborosa!',
+        sizes: [{ size: '500g', price: 25.00 }, { size: '750g', price: 38.00 }]
+    },
+    {
+        name: 'Calabresa ao Molho Branco e Sugo',
+        img: 'https://i.ibb.co/5xJzc1Dg/20251031-162330.jpg',
+        desc: 'Calabresa defumada, molho duplo, mussarela, bacon, requeijão e cebolinha picante. Picância e sabor em cada mordida!',
+        sizes: [{ size: '500g', price: 32.00 }, { size: '750g', price: 48.00 }]
+    },
+    {
+        name: 'Fraldinha ao Molho Sugo',
+        img: 'https://i.ibb.co/Y4vMD3MM/20251031-162457.jpg',
+        desc: 'Fraldinha desfiada ao molho sugo, mussarela derretida, requeijão, bacon e cebolinha. Sucesso garantido para os amantes de carne!',
+        sizes: [{ size: '500g', price: 34.00 }, { size: '750g', price: 51.00 }]
+    }
+];
 
-// Função melhorada: Detecção de mobile mais robusta para todos os tipos de celulares (Samsung, Motorola, iPhone, etc.)
-// Usa matchMedia + UA para precisão, abre menu em telas muito pequenas e carrinho se vazio, com delay suave
-function detectAndAutoOpen() {
-    const isMobile = window.matchMedia('(max-width: 768px)').matches || /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase());
-    const userAgent = navigator.userAgent.toLowerCase();
-    const isSamsung = /samsung|sm-/i.test(userAgent);
-    const isMotorola = /motorola|xt/i.test(userAgent);
-    const isIPhone = /iphone/i.test(userAgent);
-    const isGenericMobile = /mobile/i.test(userAgent);
+// Inicialização
+document.addEventListener('DOMContentLoaded', () => {
+    populateMenu();
+    updateCart();
+    toggleTrocoField();
+    detectAndAutoOpen();
+    setupSearch();
+    generateSnowflakes(); // Neve dinâmica
+    setupOfflineDetection();
+});
 
-    if (isMobile || isGenericMobile) {
-        console.log('Dispositivo móvel detectado e ajustado para abertura automática.');
-        // Para telas muito pequenas (ex.: <480px), abre menu mobile com delay
-        if (window.innerWidth < 480) {
-            setTimeout(() => {
-                toggleMobileMenu();
-                showToast('Menu aberto para navegação fácil no celular!', 'info');
-            }, 800);
-        }
-        // Se carrinho vazio, abre automaticamente para incentivar pedido (após carregamento)
-        // REMOVIDO: toggleCart(); - Agora o carrinho só abre no botão
+// Popular Menu via JS (Facilita Filtros)
+function populateMenu() {
+    const grid = document.getElementById('menu-grid');
+    grid.innerHTML = menuItems.map(item => `
+        <article class="menu-item" data-keywords="${item.name.toLowerCase()} ${item.desc.toLowerCase()}">
+            <h3>${item.name}</h3>
+            <img src="${item.img}" alt="Batata Recheada com ${item.name}" class="menu-img" loading="lazy">
+            <p>${item.desc}</p>
+            <div class="size-options">
+                ${item.sizes.map(size => `<button class="size-btn" data-size="${size.size}" data-price="${size.price}">${size.size} - R$${size.price.toFixed(2)}</button>`).join('')}
+            </div>
+            <button class="add-to-cart" onclick="addToCart('${item.name}', this)" aria-label="Adicionar ${item.name} ao carrinho">Adicionar ao Carrinho</button>
+        </article>
+    `).join('');
+}
+
+// Busca no Menu (Nova)
+function setupSearch() {
+    const searchInput = document.getElementById('menu-search');
+    searchInput.addEventListener('input', (e) => {
+        const query = e.target.value.toLowerCase();
+        const items = document.querySelectorAll('#menu-grid .menu-item');
+        items.forEach(item => {
+            const keywords = item.dataset.keywords;
+            item.style.display = keywords.includes(query) ? 'block' : 'none';
+        });
+        if (!query) items.forEach(item => item.style.display = 'block');
+    });
+}
+
+// Neve Dinâmica (Mais flocos)
+function generateSnowflakes() {
+    const snowContainer = document.querySelector('.snowflakes');
+    if (!snowContainer) return;
+    for (let i = 0; i < 50; i++) { // Mais flocos
+        const snowflake = document.createElement('div');
+        snowflake.className = 'snowflake';
+        snowflake.style.left = `${Math.random() * 100}%`;
+        snowflake.style.animationDuration = `${10 + Math.random() * 20}s`;
+        snowflake.style.animationDelay = `${Math.random() * -20}s`;
+        snowflake.style.opacity = Math.random();
+        snowflake.textContent = '❄';
+        snowflake.style.fontSize = `${0.5 + Math.random()}em`;
+        snowContainer.appendChild(snowflake);
     }
 }
 
+// Detecção Mobile e Auto-Open (Melhorada)
+function detectAndAutoOpen() {
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    if (isMobile && window.innerWidth < 480) {
+        setTimeout(() => {
+            toggleMobileMenu();
+            showToast('Menu aberto para navegação fácil no celular!', 'info');
+        }, 800);
+    }
+}
+
+// Toast (Melhorado com ARIA)
 function showToast(message, type = 'success') {
     const container = document.getElementById('toast-container');
     const toast = document.createElement('div');
-    toast.classList.add('toast', type);
+    toast.className = `toast ${type}`;
     toast.textContent = message;
+    toast.setAttribute('role', 'alert');
     container.appendChild(toast);
-
-    // Mostra o toast
     setTimeout(() => toast.classList.add('show'), 100);
-
-    // Remove após 3 segundos
     setTimeout(() => {
         toast.classList.remove('show');
         setTimeout(() => container.removeChild(toast), 300);
     }, 3000);
 }
 
+// Copiar PIX
 function copyPix() {
-    const pixKey = '34999194464';
-    navigator.clipboard.writeText(pixKey).then(() => {
-        showToast('Chave PIX copiada com sucesso!', 'success');
-    }).catch(() => {
-        showToast('Erro ao copiar chave PIX. Tente novamente.', 'error');
-    });
+    navigator.clipboard.writeText('34999194464').then(() => showToast('Chave PIX copiada!', 'success')).catch(() => showToast('Erro ao copiar. Copie manualmente: 34999194464', 'error'));
 }
 
+// Compartilhar (Melhorado)
 function shareSite() {
-    const shareData = {
-        title: 'Batata Recheada Monte',
-        text: 'Descubra as melhores batatas recheadas em Monte Carmelo, MG! Delivery delicioso e rápido. Peça agora!',
-        url: window.location.href
-    };
-
-    if (navigator.share && navigator.canShare && navigator.canShare(shareData)) {
-        navigator.share(shareData).catch((error) => {
-            console.log('Erro ao compartilhar:', error);
-            fallbackShare();
-        });
+    const shareData = { title: 'Batata Recheada Monte', text: 'Peça agora!', url: window.location.href };
+    if (navigator.share) {
+        navigator.share(shareData).catch(() => fallbackShare());
     } else {
         fallbackShare();
     }
 }
 
 function fallbackShare() {
-    const url = window.location.href;
-    navigator.clipboard.writeText(url).then(() => {
-        showToast('URL do site copiada! Compartilhe com amigos.', 'success');
-    }).catch(() => {
-        // Ultimate fallback: alert with URL
-        showToast(`Copie este link para compartilhar: ${url}`, 'info');
-    });
+    navigator.clipboard.writeText(window.location.href).then(() => showToast('URL copiada!', 'success')).catch(() => showToast(`Link: ${window.location.href}`, 'info'));
 }
 
+// Adicionar ao Carrinho (Refatorado)
 function addToCart(itemName, button, fixedPrice = null) {
     const sizeButtons = button ? button.parentElement.querySelectorAll('.size-btn') : null;
-    let selectedSize = 'Padrão'; // Default para itens sem tamanho
+    let selectedSize = 'Padrão';
     let price = fixedPrice || 0;
 
     if (sizeButtons) {
         const selectedBtn = Array.from(sizeButtons).find(btn => btn.classList.contains('selected'));
         if (!selectedBtn) {
-            showToast('Por favor, selecione um tamanho antes de adicionar ao carrinho!', 'error');
+            showToast('Selecione um tamanho!', 'error');
             return;
         }
         selectedSize = selectedBtn.dataset.size;
         price = parseFloat(selectedBtn.dataset.price);
     }
 
-    // Verifica se o item já existe no carrinho (mesmo nome e tamanho)
-    const existingItemIndex = cart.findIndex(item => item.name === itemName && item.size === selectedSize);
-    if (existingItemIndex !== -1) {
-        // Incrementa a quantidade
-        cart[existingItemIndex].quantity += 1;
-        showToast(`${itemName} ${selectedSize} (quantidade atualizada para ${cart[existingItemIndex].quantity})!`, 'success');
+    const existingIndex = cart.findIndex(item => item.name === itemName && item.size === selectedSize);
+    if (existingIndex > -1) {
+        cart[existingIndex].quantity += 1;
     } else {
-        // Adiciona novo item com quantidade 1
-        cart.push({ name: itemName, size: selectedSize, price: price, quantity: 1 });
-        showToast(`${itemName} ${selectedSize} adicionado ao carrinho!`, 'success');
+        cart.push({ name: itemName, size: selectedSize, price, quantity: 1 });
     }
 
     updateCart();
-    if (sizeButtons) {
-        sizeButtons.forEach(btn => btn.classList.remove('selected'));
-        selectedBtn.classList.add('selected');
-    }
+    showToast(`${itemName} adicionado!`, 'success');
+    if (sizeButtons) sizeButtons.forEach(btn => btn.classList.toggle('selected', btn === selectedBtn));
 }
 
+// Atualizar Quantidade e Remover
 function updateQuantity(index, delta) {
     cart[index].quantity += delta;
-    if (cart[index].quantity <= 0) {
-        cart.splice(index, 1); // Remove se quantidade for 0 ou negativa
-    }
+    if (cart[index].quantity <= 0) cart.splice(index, 1);
     updateCart();
 }
 
 function removeFromCart(index) {
-    if (confirm('Tem certeza que deseja remover este item do carrinho?')) {
+    if (confirm('Remover item?')) {
         cart.splice(index, 1);
         updateCart();
-        showToast('Item removido do carrinho com sucesso!', 'success');
+        showToast('Item removido!', 'success');
     }
 }
 
+// Toggle Troco
 function toggleTrocoField() {
     const paymentType = document.querySelector('input[name="payment-type"]:checked').value;
-    const trocoField = document.getElementById('troco-field');
-    if (paymentType === 'dinheiro') {
-        trocoField.style.display = 'block';
-    } else {
-        trocoField.style.display = 'none';
-        document.getElementById('troco-value').value = '';
-    }
+    document.getElementById('troco-field').style.display = paymentType === 'dinheiro' ? 'block' : 'none';
 }
 
+// Atualizar Carrinho (Otimizado)
 function updateCart() {
     const cartItems = document.getElementById('cart-items');
     const totalEl = document.getElementById('cart-total');
@@ -148,178 +195,146 @@ function updateCart() {
     cart.forEach((item, index) => {
         const itemSubtotal = item.price * item.quantity;
         subtotal += itemSubtotal;
-
         const div = document.createElement('div');
-        div.classList.add('cart-item');
+        div.className = 'cart-item';
         div.innerHTML = `
             <div class="item-info">
                 <span class="item-name">${item.name}</span>
                 <span class="item-size">(${item.size})</span>
                 <div class="quantity-controls">
-                    <button class="qty-btn" onclick="updateQuantity(${index}, -1)">−</button>
+                    <button class="qty-btn" onclick="updateQuantity(${index}, -1)" aria-label="Diminuir quantidade">−</button>
                     <span class="qty-display">${item.quantity}</span>
-                    <button class="qty-btn" onclick="updateQuantity(${index}, 1)">+</button>
+                    <button class="qty-btn" onclick="updateQuantity(${index}, 1)" aria-label="Aumentar quantidade">+</button>
                 </div>
             </div>
             <div class="item-price">
                 <span class="item-subtotal">R$ ${itemSubtotal.toFixed(2)}</span>
-                <button class="remove-btn" onclick="removeFromCart(${index})">Remover</button>
+                <button class="remove-btn" onclick="removeFromCart(${index})" aria-label="Remover item">Remover</button>
             </div>
         `;
         cartItems.appendChild(div);
     });
 
-    // Salva no localStorage
     localStorage.setItem('cart', JSON.stringify(cart));
 
-    // Lógica para taxa de entrega/retirada
     const orderType = document.querySelector('input[name="order-type"]:checked').value;
     const deliveryFee = orderType === 'delivery' ? 8.00 : 0.00;
-    const deliveryLine = document.getElementById('delivery-line');
-    if (orderType === 'delivery') {
-        deliveryLine.style.display = 'flex';
-    } else {
-        deliveryLine.style.display = 'none';
-    }
-
+    document.getElementById('delivery-line').style.display = orderType === 'delivery' ? 'flex' : 'none';
     const total = subtotal + deliveryFee;
     totalEl.textContent = `Total: R$ ${total.toFixed(2)}`;
     cartCount.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
 }
 
+// Toggle Carrinho
 function toggleCart() {
     const cartEl = document.getElementById('cart');
     const overlay = document.getElementById('cart-overlay');
-    cartEl.classList.toggle('open');
-    overlay.classList.toggle('show');
+    const isOpen = cartEl.classList.toggle('open');
+    overlay.classList.toggle('show', isOpen);
+    cartEl.setAttribute('aria-hidden', !isOpen);
 }
 
+// Checkout (Validações Melhoradas)
 function checkout() {
-    if (cart.length === 0) {
-        showToast('Seu carrinho está vazio! Adicione itens para continuar.', 'error');
-        return;
-    }
+    if (cart.length === 0) return showToast('Carrinho vazio!', 'error');
 
     const orderType = document.querySelector('input[name="order-type"]:checked').value;
-    const paymentType = document.querySelector('input[name="payment-type"]:checked').value;
-
     if (orderType === 'delivery') {
-        const customerName = document.getElementById('customer-name').value.trim();
-        const street = document.getElementById('street').value.trim();
-        const number = document.getElementById('number').value.trim();
-        const neighborhood = document.getElementById('neighborhood').value.trim();
-        if (!customerName || !street || !number || !neighborhood) {
-            showToast('Preencha todos os campos de endereço para entrega em Monte Carmelo!', 'error');
-            return;
+        const fields = ['customer-name', 'street', 'number', 'neighborhood'];
+        if (fields.some(id => !document.getElementById(id).value.trim())) {
+            return showToast('Preencha o endereço!', 'error');
         }
     }
 
-    let message = 'Olá! Gostaria de fazer um pedido na Batata Recheada Monte:\n\n';
-    cart.forEach(item => {
-        const itemTotal = item.price * item.quantity;
-        message += `- ${item.name} (${item.size || ''}) x${item.quantity} - R$ ${itemTotal.toFixed(2)}\n`;
-    });
-
+    let message = 'Olá! Pedido na Batata Recheada Monte:\n\n';
+    cart.forEach(item => message += `- ${item.name} (${item.size}) x${item.quantity} - R$ ${(item.price * item.quantity).toFixed(2)}\n`);
     const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
     const deliveryFee = orderType === 'delivery' ? 8.00 : 0.00;
-    const total = subtotal + deliveryFee;
-    message += `\nSubtotal: R$ ${subtotal.toFixed(2)}\n`;
-    message += `Taxa de Entrega: R$ ${deliveryFee.toFixed(2)}\n`;
-    message += `Total a Pagar: R$ ${total.toFixed(2)}\n\n`;
+    message += `\nSubtotal: R$ ${subtotal.toFixed(2)}\nTaxa: R$ ${deliveryFee.toFixed(2)}\nTotal: R$ ${(subtotal + deliveryFee).toFixed(2)}\n\n`;
 
-    if (orderType === 'pickup') {
-        message += `Tipo de Pedido: Retirada no local\nEndereço: Rua Marajó N: 908, Bairro: Lagoinha, Monte Carmelo - MG\n\n`;
-    } else {
-        const customerName = document.getElementById('customer-name').value;
+    if (orderType === 'delivery') {
+        const name = document.getElementById('customer-name').value;
         const street = document.getElementById('street').value;
         const number = document.getElementById('number').value;
         const neighborhood = document.getElementById('neighborhood').value;
-        message += `Tipo de Pedido: Entrega\nEndereço:\nNome: ${customerName}\n${street}, ${number} - ${neighborhood}, Monte Carmelo - MG\n\n`;
+        message += `Entrega para: ${name}\n${street}, ${number} - ${neighborhood}, Monte Carmelo - MG\n\n`;
+    } else {
+        message += 'Retirada no local\n';
     }
 
-    let paymentText = '';
+    const paymentType = document.querySelector('input[name="payment-type"]:checked').value;
+    let paymentText = `Pagamento: ${paymentType === 'dinheiro' ? 'Dinheiro' : paymentType === 'cartao' ? 'Cartão' : 'PIX (Chave: 34999194464)'}`;
     if (paymentType === 'dinheiro') {
-        const trocoValue = document.getElementById('troco-value').value;
-        paymentText = `Método de Pagamento: Dinheiro (troco disponível)`;
-        if (trocoValue) {
-            paymentText += `\nTroco para: R$ ${parseFloat(trocoValue).toFixed(2)}`;
-        }
-        paymentText += `\n`;
-    } else if (paymentType === 'cartao') {
-        paymentText = 'Método de Pagamento: Cartão (Débito/Crédito)\n';
-    } else if (paymentType === 'pix') {
-        paymentText = 'Método de Pagamento: Pix (Chave: 34999194464)\n';
+        const troco = document.getElementById('troco-value').value;
+        if (troco) paymentText += ` (Troco para R$ ${troco})`;
     }
-    message += paymentText;
+    message += `${paymentText}\n\nAguardo confirmação! 😊`;
 
-    message += 'Aguardo confirmação do pedido! 😊';
-
-    const whatsappUrl = `https://wa.me/553499194464?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank');
-    showToast('Pedido enviado para o WhatsApp! Em breve entraremos em contato.', 'success');
-    cart = []; // Limpa carrinho após envio
-    localStorage.removeItem('cart'); // Remove do localStorage
+    window.open(`https://wa.me/553499194464?text=${encodeURIComponent(message)}`, '_blank');
+    showToast('Pedido enviado!', 'success');
+    cart = [];
+    localStorage.removeItem('cart');
     updateCart();
     toggleCart();
 }
 
-// Funções para Menu Mobile
+// Export PDF Simples (Nova: Usa window.print com estilo)
+function exportCartAsPDF() {
+    if (cart.length === 0) return showToast('Carrinho vazio!', 'error');
+    const printWindow = window.open('', '_blank');
+    printWindow.document.write(`
+        <html><head><title>Carrinho - Batata Recheada Monte</title>
+        <style>body{font-family:Arial;margin:20px;}table{border-collapse:collapse;width:100%;}th,td{border:1px solid #ddd;padding:8px;}th{background:#FFD700;}</style></head>
+        <body><h1>Carrinho de Compras</h1><table><tr><th>Item</th><th>Quantidade</th><th>Preço</th></tr>
+        ${cart.map(item => `<tr><td>${item.name} (${item.size})</td><td>${item.quantity}</td><td>R$ ${(item.price * item.quantity).toFixed(2)}</td></tr>`).join('')}
+        <tr><td colspan="2"><strong>Total</strong></td><td>R$ ${cart.reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(2)}</td></tr></table>
+        <script>window.print(); window.close();</script></body></html>
+    `);
+    printWindow.document.close();
+}
+
+// Menu Mobile
 function toggleMobileMenu() {
-    const navLinks = document.getElementById('nav-links');
-    navLinks.classList.toggle('active');
+    const nav = document.getElementById('nav-links');
+    const hamburger = document.querySelector('.hamburger');
+    nav.classList.toggle('active');
+    hamburger.setAttribute('aria-expanded', nav.classList.contains('active'));
 }
 
-function closeMobileMenu() {
-    const navLinks = document.getElementById('nav-links');
-    navLinks.classList.remove('active');
-}
+function closeMobileMenu() { document.getElementById('nav-links').classList.remove('active'); }
 
-// Seleção de tamanho
-document.addEventListener('click', function(e) {
+// Seleção de Tamanho
+document.addEventListener('click', (e) => {
     if (e.target.classList.contains('size-btn')) {
         e.target.parentElement.querySelectorAll('.size-btn').forEach(btn => btn.classList.remove('selected'));
         e.target.classList.add('selected');
     }
 });
 
-// Listener para mudança nas opções de entrega/retirada
-document.addEventListener('change', function(e) {
+// Listeners para Opções
+document.addEventListener('change', (e) => {
     if (e.target.name === 'order-type') {
-        const addressInputs = document.querySelector('.address-inputs');
-        if (e.target.value === 'delivery') {
-            addressInputs.style.display = 'block';
-            document.getElementById('delivery-line').style.display = 'flex';
-        } else {
-            addressInputs.style.display = 'none';
-            document.getElementById('delivery-line').style.display = 'none';
-        }
+        const address = document.querySelector('.address-inputs');
+        address.style.display = e.target.value === 'delivery' ? 'block' : 'none';
+        document.getElementById('delivery-line').style.display = e.target.value === 'delivery' ? 'flex' : 'none';
         updateCart();
     }
+    if (e.target.name === 'payment-type') toggleTrocoField();
 });
 
-// Listener para toggle troco no pagamento
-document.addEventListener('change', function(e) {
-    if (e.target.name === 'payment-type') {
-        toggleTrocoField();
-    }
-});
-
-// Scroll suave para links de navegação
+// Scroll Suave
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
+    anchor.addEventListener('click', (e) => {
         e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-            behavior: 'smooth'
-        });
+        document.querySelector(anchor.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
     });
 });
 
-// Fechar carrinho ao clicar no overlay
+// Overlay Click
 document.getElementById('cart-overlay').addEventListener('click', toggleCart);
 
-// Inicializa o carrinho ao carregar a página
-document.addEventListener('DOMContentLoaded', function() {
-    updateCart();
-    toggleTrocoField(); // Inicializa o campo de troco
-    detectAndAutoOpen(); // Ativa a detecção melhorada para abertura automática em todos os celulares
-});
+// Detecção Offline (Nova)
+function setupOfflineDetection() {
+    window.addEventListener('online', () => showToast('Conectado! Pode pedir agora.', 'success'));
+    window.addEventListener('offline', () => showToast('Offline: Carrinho salvo localmente.', 'info'));
+}

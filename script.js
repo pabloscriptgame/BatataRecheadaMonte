@@ -278,21 +278,6 @@ function checkout() {
     toggleCart();
 }
 
-// Export PDF Simples (Nova: Usa window.print com estilo)
-function exportCartAsPDF() {
-    if (cart.length === 0) return showToast('Carrinho vazio!', 'error');
-    const printWindow = window.open('', '_blank');
-    printWindow.document.write(`
-        <html><head><title>Carrinho - Batata Recheada Monte</title>
-        <style>body{font-family:Arial;margin:20px;}table{border-collapse:collapse;width:100%;}th,td{border:1px solid #ddd;padding:8px;}th{background:#FFD700;}</style></head>
-        <body><h1>Carrinho de Compras</h1><table><tr><th>Item</th><th>Quantidade</th><th>Preço</th></tr>
-        ${cart.map(item => `<tr><td>${item.name} (${item.size})</td><td>${item.quantity}</td><td>R$ ${(item.price * item.quantity).toFixed(2)}</td></tr>`).join('')}
-        <tr><td colspan="2"><strong>Total</strong></td><td>R$ ${cart.reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(2)}</td></tr></table>
-        <script>window.print(); window.close();</script></body></html>
-    `);
-    printWindow.document.close();
-}
-
 // Menu Mobile
 function toggleMobileMenu() {
     const nav = document.getElementById('nav-links');

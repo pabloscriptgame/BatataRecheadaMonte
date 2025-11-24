@@ -140,20 +140,10 @@ function closeModal() {
     document.getElementById('modal-image').src = '';
 }
 
-// BOTÃO COPIAR CHAVE PIX (TROQUE A CHAVE AQUI!)
 function copyPix() {
-    const chavePix = "34 99919-4464"; // ← MUDE PARA SUA CHAVE PIX REAL
-
-    const tempInput = document.createElement("input");
-    tempInput.value = chavePix;
-    document.body.appendChild(tempInput);
-    tempInput.select();
-    tempInput.setSelectionRange(0, 99999);
-    document.execCommand("copy");
-    document.body.removeChild(tempInput);
-
+    const chavePix = "34 99919-4464";
+    navigator.clipboard.writeText(chavePix);
     toast("Chave PIX copiada: " + chavePix);
-
     const btn = document.querySelector(".copy-pix-btn");
     const original = btn.textContent;
     btn.textContent = "Copiado!";

@@ -90,7 +90,9 @@
             <button onclick="toggleCart()" class="close-cart">×</button>
         </div>
         <div id="cart-items" class="cart-items"></div>
-        <div class="cart-footer">
+
+        <!-- NOVA ESTRUTURA PARA GARANTIR ROLAGEM E BOTÃO SEMPRE VISÍVEL -->
+        <div class="cart-scroll-area">
             <div class="delivery-options">
                 <label class="active"><input type="radio" name="type" value="pickup" checked onchange="updateDelivery()"> Retirada</label>
                 <label><input type="radio" name="type" value="delivery" onchange="updateDelivery()"> Entrega +R$8</label>
@@ -116,6 +118,9 @@
                 <span>Total:</span>
                 <strong id="cart-total">R$ 0,00</strong>
             </div>
+        </div>
+
+        <div class="cart-footer-fixed">
             <button id="checkout-btn" onclick="checkout()">Finalizar Pedido no WhatsApp</button>
         </div>
     </div>

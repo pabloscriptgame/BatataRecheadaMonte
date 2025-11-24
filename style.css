@@ -11,18 +11,15 @@
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box
+    box-sizing: border-box;
 }
 
 body {
     font-family: 'Poppins', sans-serif;
     background: var(--bg);
     color: var(--text);
-    overflow-x: hidden
+    overflow-x: hidden;
 }
-
-
-/* HEADER */
 
 header {
     background: var(--bg);
@@ -31,7 +28,7 @@ header {
     width: 100%;
     top: 0;
     z-index: 1000;
-    box-shadow: 0 4px 20px rgba(255, 215, 0, .25)
+    box-shadow: 0 4px 20px rgba(255, 215, 0, .25);
 }
 
 nav {
@@ -40,14 +37,14 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 1rem
+    padding: 0 1rem;
 }
 
 .logo-img {
     width: 70px;
     border: 3px solid var(--gold);
     border-radius: 50%;
-    box-shadow: 0 0 20px rgba(255, 215, 0, .4)
+    box-shadow: 0 0 20px rgba(255, 215, 0, .4);
 }
 
 .hamburger {
@@ -56,19 +53,19 @@ nav {
     border: none;
     color: var(--gold);
     font-size: 2rem;
-    cursor: pointer
+    cursor: pointer;
 }
 
 .nav-links {
     display: flex;
-    gap: 2rem
+    gap: 2rem;
 }
 
 .nav-links a {
     color: var(--text);
     text-decoration: none;
     position: relative;
-    transition: .3s
+    transition: .3s;
 }
 
 .nav-links a::after {
@@ -79,37 +76,34 @@ nav {
     width: 0;
     height: 2px;
     background: var(--gold);
-    transition: .3s
+    transition: .3s;
 }
 
 .nav-links a:hover::after {
-    width: 100%
+    width: 100%;
 }
-
-
-/* HERO */
 
 #hero {
     text-align: center;
     padding: 7rem 1rem 4rem;
-    background: linear-gradient(rgba(0, 0, 0, .85), rgba(0, 0, 0, .95)), url('https://i.ibb.co/DfMRR5hz/20251031-173449-1.jpg') center/cover
+    background: linear-gradient(rgba(0, 0, 0, .85), rgba(0, 0, 0, .95)), url('https://i.ibb.co/DfMRR5hz/20251031-173449-1.jpg') center/cover;
 }
 
 #hero h1 {
     font-size: 3rem;
-    margin-bottom: .5rem
+    margin-bottom: .5rem;
 }
 
 #hero p {
     font-size: 1.3rem;
-    color: var(--text-light)
+    color: var(--text-light);
 }
 
 #hero img {
     max-width: 100%;
     border-radius: 20px;
     margin: 1.5rem 0;
-    box-shadow: 0 15px 40px rgba(0, 0, 0, .8)
+    box-shadow: 0 15px 40px rgba(0, 0, 0, .8);
 }
 
 .btn {
@@ -121,21 +115,18 @@ nav {
     display: inline-block;
     margin-top: 1rem;
     box-shadow: 0 10px 30px rgba(255, 215, 0, .4);
-    transition: .3s
+    transition: .3s;
 }
 
 .btn:hover {
     background: var(--gold-dark);
-    transform: translateY(-4px)
+    transform: translateY(-4px);
 }
-
-
-/* BUSCA */
 
 #search-section {
     padding: 1.5rem;
     background: var(--card);
-    text-align: center
+    text-align: center;
 }
 
 #menu-search {
@@ -146,37 +137,31 @@ nav {
     border-radius: 50px;
     background: var(--bg);
     color: white;
-    font-size: 1.1rem
+    font-size: 1.1rem;
 }
 
 #menu-search:focus {
     outline: none;
-    box-shadow: 0 0 0 5px rgba(255, 215, 0, .3)
+    box-shadow: 0 0 0 5px rgba(255, 215, 0, .3);
 }
 
-
-/* SEÇÕES */
-
 section {
-    padding: 3rem 1rem
+    padding: 3rem 1rem;
 }
 
 h2 {
     text-align: center;
     font-size: 2.5rem;
     margin-bottom: 2rem;
-    color: var(--gold)
+    color: var(--gold);
 }
-
-
-/* CARDÁPIO */
 
 .menu-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
     max-width: 1200px;
-    margin: auto
+    margin: auto;
 }
 
 .menu-item {
@@ -185,12 +170,12 @@ h2 {
     overflow: hidden;
     box-shadow: 0 10px 30px rgba(0, 0, 0, .7);
     transition: .4s;
-    text-align: center
+    text-align: center;
 }
 
 .menu-item:hover {
     transform: translateY(-15px);
-    box-shadow: 0 20px 50px rgba(255, 215, 0, .3)
+    box-shadow: 0 20px 50px rgba(255, 215, 0, .3);
 }
 
 .menu-item img {
@@ -199,23 +184,23 @@ h2 {
     object-fit: cover;
     border-radius: 16px;
     cursor: zoom-in;
-    transition: .4s
+    transition: .4s;
 }
 
 .menu-item img:hover {
     transform: scale(1.03);
-    filter: brightness(1.1)
+    filter: brightness(1.1);
 }
 
 .menu-item h3 {
     padding: 1rem;
     font-size: 1.5rem;
-    color: var(--gold)
+    color: var(--gold);
 }
 
 .menu-item p {
     padding: 0 1rem 1rem;
-    color: var(--text-light)
+    color: var(--text-light);
 }
 
 .size-options {
@@ -224,7 +209,7 @@ h2 {
     justify-content: center;
     flex-wrap: wrap;
     padding: 12px 8px;
-    margin: 10px 0
+    margin: 10px 0;
 }
 
 .size-btn {
@@ -236,19 +221,19 @@ h2 {
     border-radius: 16px;
     font-weight: 600;
     cursor: pointer;
-    transition: all .3s
+    transition: all .3s;
 }
 
 .size-btn:hover {
     background: #333;
-    border-color: var(--gold)
+    border-color: var(--gold);
 }
 
 .size-btn.selected {
     background: var(--gold);
     color: #000;
     border-color: var(--gold);
-    box-shadow: 0 0 20px rgba(255, 215, 0, .6)
+    box-shadow: 0 0 20px rgba(255, 215, 0, .6);
 }
 
 .add-to-cart {
@@ -260,15 +245,12 @@ h2 {
     font-weight: bold;
     font-size: 1.1rem;
     cursor: pointer;
-    transition: .3s
+    transition: .3s;
 }
 
 .add-to-cart:hover {
-    background: var(--gold-dark)
+    background: var(--gold-dark);
 }
-
-
-/* BOTÃO CARRINHO FIXO */
 
 #cart-toggle {
     position: fixed;
@@ -290,7 +272,7 @@ h2 {
 }
 
 #cart-toggle:hover {
-    transform: scale(1.1)
+    transform: scale(1.1);
 }
 
 #cart-count {
@@ -310,7 +292,7 @@ h2 {
 }
 
 
-/* CARRINHO MODAL */
+/* CARRINHO COM ROLAGEM PERFEITA */
 
 .cart-modal {
     position: fixed;
@@ -328,7 +310,7 @@ h2 {
 }
 
 .cart-modal.open {
-    right: 0
+    right: 0;
 }
 
 .cart-header {
@@ -343,7 +325,7 @@ h2 {
 
 .cart-header h3 {
     color: var(--gold);
-    font-size: 1.5rem
+    font-size: 1.5rem;
 }
 
 .close-cart {
@@ -351,14 +333,29 @@ h2 {
     border: none;
     color: white;
     font-size: 3.5rem;
-    cursor: pointer
+    cursor: pointer;
+    line-height: 1;
 }
 
 .cart-items {
     flex: 1;
     overflow-y: auto;
     padding: 1rem;
+    min-height: 0;
     -webkit-overflow-scrolling: touch;
+}
+
+.cart-items::-webkit-scrollbar {
+    width: 8px;
+}
+
+.cart-items::-webkit-scrollbar-track {
+    background: #000;
+}
+
+.cart-items::-webkit-scrollbar-thumb {
+    background: var(--gold);
+    border-radius: 4px;
 }
 
 .cart-items:empty::after {
@@ -382,13 +379,7 @@ h2 {
 }
 
 .cart-item strong {
-    color: var(--gold)
-}
-
-.cart-item .qty {
-    display: flex;
-    gap: 8px;
-    align-items: center
+    color: var(--gold);
 }
 
 .cart-item .qty button {
@@ -427,7 +418,6 @@ h2 {
     transition: .3s;
     flex: 1;
     text-align: center;
-    position: relative;
 }
 
 .delivery-options label.active,
@@ -438,14 +428,11 @@ h2 {
     color: #000;
 }
 
-
-/* BOTÃO PIX */
-
 .pix-label {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px
+    gap: 8px;
 }
 
 .copy-pix-btn {
@@ -462,7 +449,7 @@ h2 {
 
 .copy-pix-btn:hover {
     background: var(--gold);
-    color: #000
+    color: #000;
 }
 
 #address-fields input,
@@ -478,7 +465,7 @@ h2 {
 }
 
 #troco-field {
-    display: none
+    display: none;
 }
 
 .total {
@@ -503,7 +490,7 @@ h2 {
 }
 
 #checkout-btn:hover {
-    background: var(--gold-dark)
+    background: var(--gold-dark);
 }
 
 #cart-overlay {
@@ -521,11 +508,8 @@ h2 {
 
 #cart-overlay.show {
     opacity: 1;
-    visibility: visible
+    visibility: visible;
 }
-
-
-/* MODAL IMAGEM */
 
 .image-modal {
     display: none;
@@ -539,17 +523,17 @@ h2 {
     align-items: center;
     justify-content: center;
     padding: 20px;
-    cursor: pointer
+    cursor: pointer;
 }
 
 .image-modal.show {
-    display: flex
+    display: flex;
 }
 
 #modal-image {
     max-width: 95%;
     max-height: 95vh;
-    border-radius: 16px
+    border-radius: 16px;
 }
 
 .modal-close {
@@ -559,11 +543,8 @@ h2 {
     font-size: 3rem;
     color: white;
     cursor: pointer;
-    z-index: 2001
+    z-index: 2001;
 }
-
-
-/* TOAST */
 
 .toast {
     position: fixed;
@@ -583,16 +564,13 @@ h2 {
 
 .toast.show {
     opacity: 1;
-    transform: translateY(0)
+    transform: translateY(0);
 }
-
-
-/* FOOTER */
 
 footer {
     background: #000;
     padding: 3rem 1rem;
-    text-align: center
+    text-align: center;
 }
 
 .social-links a,
@@ -605,16 +583,13 @@ footer {
     text-decoration: none;
     font-weight: bold;
     display: inline-block;
-    transition: .3s
+    transition: .3s;
 }
 
 .social-links a:hover,
 .share-btn:hover {
-    background: var(--gold-dark)
+    background: var(--gold-dark);
 }
-
-
-/* RESPONSIVO */
 
 @media(max-width:768px) {
     .hamburger {

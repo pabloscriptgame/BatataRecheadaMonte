@@ -61,7 +61,7 @@ function updateQuantity(i, delta) {
 
 function updateCart() {
     const container = document.getElementById('cart-items');
-    container.innerHTML = cart.length === 0 ? '' : '';
+    container.innerHTML = '';
     let total = 0;
     cart.forEach((item, i) => {
         total += item.price * item.qty;
@@ -79,8 +79,7 @@ function updateCart() {
             </div>`;
     });
 
-    const delivery = document.querySelector('input[value="delivery"]')?.checked;
-    if (delivery) total += 8;
+    if (document.querySelector('input[value="delivery"]')?.checked) total += 8;
 
     document.getElementById('cart-total').textContent = `R$ ${total.toFixed(2)}`;
     document.getElementById('cart-count').textContent = cart.reduce((a,b)=>a+b.qty,0) || '';
@@ -141,6 +140,32 @@ function closeModal() {
     document.getElementById('modal-image').src = '';
 }
 
+// BOTÃO COPIAR CHAVE PIX (TROQUE A CHAVE AQUI!)
+function copyPix() {
+    const chavePix = "34 99919-4464"; // ← MUDE PARA SUA CHAVE PIX REAL
+
+    const tempInput = document.createElement("input");
+    tempInput.value = chavePix;
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    tempInput.setSelectionRange(0, 99999);
+    document.execCommand("copy");
+    document.body.removeChild(tempInput);
+
+    toast("Chave PIX copiada: " + chavePix);
+
+    const btn = document.querySelector(".copy-pix-btn");
+    const original = btn.textContent;
+    btn.textContent = "Copiado!";
+    btn.style.background = "#27ae60";
+    btn.style.color = "white";
+    setTimeout(() => {
+        btn.textContent = original;
+        btn.style.background = "";
+        btn.style.color = "";
+    }, 2000);
+}
+
 function checkout() {
     if (cart.length === 0) return toast('Carrinho vazio!');
 
@@ -177,4 +202,13 @@ function checkout() {
     location.href = `https://wa.me/553499194464?text=${encodeURIComponent(msg)}`;
     cart = []; localStorage.removeItem('cart'); updateCart(); toggleCart();
     toast('Pedido enviado com sucesso!');
+}
+
+function shareSite() {
+    if (navigator.share) {
+        navigator.share({ title: 'Batata Recheada Monte', url: location.href });
+    } else {
+        navigator.clipboard.writeText(location.href);
+        toast('Link copiado!');
+    }
 }

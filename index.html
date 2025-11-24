@@ -8,7 +8,7 @@
     <meta name="description" content="As melhores batatas recheadas de Monte Carmelo! Delivery rápido via WhatsApp.">
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="icon" href="https://i.ibb.co/678MfNfq/20251102-111004.png" type="image/png">
+    <link rel="icon" href="https://i.ibb.co/yF3gpKXy/logo-natal-Photoroom.png" type="image/png">
 </head>
 
 <body>
@@ -16,7 +16,7 @@
     <header>
         <nav>
             <div class="logo">
-                <img src="https://i.ibb.co/fdQ1Bt4S/20251022-124747.png" alt="Batata Recheada Monte" class="logo-img">
+                <img src="https://i.ibb.co/yF3gpKXy/logo-natal-Photoroom.png" alt="Batata Recheada Monte" class="logo-img">
             </div>
             <button class="hamburger" onclick="toggleMenu()">Menu</button>
             <ul class="nav-links" id="nav-links">
@@ -64,12 +64,6 @@
         </div>
     </section>
 
-    <section id="map-section">
-        <h2>Onde Estamos</h2>
-        <p>Rua Marajó, 908 - Lagoinha, Monte Carmelo - MG</p>
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3759.8!2d-47.4989!3d-18.725!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTjCsDQzJzM1LjciUyA0N8KwMjknNTguM1c!5e0!3m2!1spt-BR!2sbr!4v1720572800000" allowfullscreen="" loading="lazy"></iframe>
-    </section>
-
     <footer id="contact">
         <div class="social-links">
             <a href="https://wa.me/553499194464" target="_blank">WhatsApp (34) 99919-4464</a>
@@ -89,31 +83,24 @@
         <span id="cart-count">0</span>
     </button>
 
-    <!-- CARRINHO PERFEITO -->
+    <!-- CARRINHO MODAL -->
     <div id="cart" class="cart-modal">
         <div class="cart-header">
             <h3>Seu Pedido</h3>
             <button onclick="toggleCart()" class="close-cart">×</button>
         </div>
-
         <div id="cart-items" class="cart-items"></div>
-
         <div class="cart-footer">
-            <!-- Tipo de pedido -->
             <div class="delivery-options">
                 <label class="active"><input type="radio" name="type" value="pickup" checked onchange="updateDelivery()"> Retirada</label>
                 <label><input type="radio" name="type" value="delivery" onchange="updateDelivery()"> Entrega +R$8</label>
             </div>
-
-            <!-- Endereço -->
             <div id="address-fields" style="display:none;">
                 <input type="text" id="customer-name" placeholder="Seu nome completo">
                 <input type="text" id="street" placeholder="Rua / Avenida">
                 <input type="text" id="number" placeholder="Número">
                 <input type="text" id="neighborhood" placeholder="Bairro">
             </div>
-
-            <!-- Pagamento -->
             <div class="payment-options">
                 <label class="active"><input type="radio" name="payment" value="dinheiro" checked> Dinheiro</label>
                 <label><input type="radio" name="payment" value="cartao"> Cartão</label>
@@ -122,21 +109,16 @@
                     <button type="button" onclick="copyPix()" class="copy-pix-btn">Copiar chave</button>
                 </label>
             </div>
-
-            <!-- Troco -->
             <div id="troco-field" class="troco-field">
                 <input type="number" id="troco-value" placeholder="Troco para quanto? (opcional)" step="0.01">
             </div>
-
             <div class="total">
                 <span>Total:</span>
                 <strong id="cart-total">R$ 0,00</strong>
             </div>
-
             <button id="checkout-btn" onclick="checkout()">Finalizar Pedido no WhatsApp</button>
         </div>
     </div>
-
     <div id="cart-overlay" onclick="toggleCart()"></div>
 
     <div id="image-modal" class="image-modal" onclick="closeModal()">

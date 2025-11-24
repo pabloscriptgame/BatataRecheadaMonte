@@ -8,18 +8,17 @@
     <meta name="description" content="As melhores batatas recheadas de Monte Carmelo! Delivery rápido via WhatsApp.">
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="icon" href="https://i.ibb.co/yF3gpKXy/logo-natal-Photoroom.png" type="image/png">
+    <link rel="icon" href="https://i.ibb.co/678MfNfq/20251102-111004.png" type="image/png">
 </head>
 
 <body>
 
-    <!-- Header -->
     <header>
         <nav>
             <div class="logo">
-                <img src="https://i.ibb.co/yF3gpKXy/logo-natal-Photoroom.png" alt="Batata Recheada Monte" class="logo-img">
+                <img src="https://i.ibb.co/fdQ1Bt4S/20251022-124747.png" alt="Batata Recheada Monte" class="logo-img">
             </div>
-            <button class="hamburger" aria-label="Menu" onclick="toggleMenu()">Menu</button>
+            <button class="hamburger" onclick="toggleMenu()">Menu</button>
             <ul class="nav-links" id="nav-links">
                 <li><a href="#hero" onclick="closeMenu()">Início</a></li>
                 <li><a href="#menu" onclick="closeMenu()">Cardápio</a></li>
@@ -29,7 +28,6 @@
         </nav>
     </header>
 
-    <!-- Hero -->
     <section id="hero">
         <div class="hero-content">
             <h1>Batata Recheada Monte</h1>
@@ -39,18 +37,15 @@
         </div>
     </section>
 
-    <!-- Busca -->
     <section id="search-section">
         <input type="search" id="menu-search" placeholder="Buscar recheio (ex: bacon, frango)...">
     </section>
 
-    <!-- Cardápio -->
     <section id="menu">
         <h2>Nosso Cardápio</h2>
         <div class="menu-grid" id="menu-grid"></div>
     </section>
 
-    <!-- Bebidas -->
     <section id="bebidas">
         <h2>Bebidas Geladas</h2>
         <div class="menu-grid">
@@ -58,37 +53,34 @@
                 <img src="https://i.ibb.co/qf5F4vn/20251031-163500.jpg" alt="Coca-Cola" onclick="openModal(this.src)">
                 <h3>Coca-Cola Lata</h3>
                 <p>350ml</p>
-                <button class="add-to-cart" onclick="addDrink('Coca-Cola Lata', 5.00)">R$ 5,00</button>
+                <button class="add-to-cart" onclick="addDrink('Coca-Cola Lata', 5)">R$ 5,00</button>
             </article>
             <article class="menu-item">
                 <img src="https://i.ibb.co/FkS7brzJ/20251031-163524.jpg" alt="Coca-Cola Zero" onclick="openModal(this.src)">
                 <h3>Coca-Cola Zero</h3>
                 <p>350ml</p>
-                <button class="add-to-cart" onclick="addDrink('Coca-Cola Zero', 5.00)">R$ 5,00</button>
+                <button class="add-to-cart" onclick="addDrink('Coca-Cola Zero', 5)">R$ 5,00</button>
             </article>
         </div>
     </section>
 
-    <!-- Mapa -->
     <section id="map-section">
         <h2>Onde Estamos</h2>
         <p>Rua Marajó, 908 - Lagoinha, Monte Carmelo - MG</p>
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3759.8!2d-47.4989!3d-18.725!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTPCsDQzJzM1LjciUyA0N8KwMjknNTguMyJX!5e0!3m2!1spt-BR!2sbr!4v1720572800000" allowfullscreen=""
-            loading="lazy"></iframe>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3759.8!2d-47.4989!3d-18.725!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTjCsDQzJzM1LjciUyA0N8KwMjknNTguM1c!5e0!3m2!1spt-BR!2sbr!4v1720572800000" allowfullscreen="" loading="lazy"></iframe>
     </section>
 
-    <!-- Footer -->
     <footer id="contact">
         <div class="social-links">
             <a href="https://wa.me/553499194464" target="_blank">WhatsApp (34) 99919-4464</a>
             <a href="https://instagram.com/batatarecheadamonte" target="_blank">@batatarecheadamonte</a>
             <button onclick="shareSite()" class="share-btn">Compartilhar</button>
         </div>
-        <p>© 2025 Batata Recheada Monte • Todos os direitos reservados</p>
+        <p>© 2025 Batata Recheada Monte</p>
     </footer>
 
-    <!-- BOTÃO FIXO DO CARRINHO -->
-    <button id="cart-toggle" onclick="toggleCart()" aria-label="Carrinho">
+    <!-- Botão Carrinho -->
+    <button id="cart-toggle" onclick="toggleCart()">
         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
             <circle cx="9" cy="21" r="1.5"></circle>
             <circle cx="20" cy="21" r="1.5"></circle>
@@ -97,58 +89,61 @@
         <span id="cart-count">0</span>
     </button>
 
-    <!-- CARRINHO LATERAL -->
-    <div id="cart" class="cart-sidebar">
+    <!-- CARRINHO PERFEITO -->
+    <div id="cart" class="cart-modal">
         <div class="cart-header">
-            <h3>Seu Carrinho</h3>
-            <button onclick="toggleCart()" class="close-cart" aria-label="Fechar">×</button>
+            <h3>Seu Pedido</h3>
+            <button onclick="toggleCart()" class="close-cart">×</button>
         </div>
-        <div id="cart-items" class="cart-items"></div>
-        <div class="cart-summary">
-            <div class="summary-line"><span>Subtotal</span><span id="subtotal">R$ 0,00</span></div>
-            <div class="summary-line" id="delivery-line"><span>Taxa de entrega</span><span>R$ 8,00</span></div>
-            <div class="summary-total"><strong>Total</strong><strong id="cart-total">R$ 0,00</strong></div>
-        </div>
-        <div class="options-group">
-            <label class="option-label active" data-type="pickup">
-                <input type="radio" name="order-type" value="pickup" checked onchange="updateDelivery()"> Retirada no local
-            </label>
-            <label class="option-label" data-type="delivery">
-                <input type="radio" name="order-type" value="delivery" onchange="updateDelivery()"> Entrega (+R$ 8,00)
-            </label>
-        </div>
-        <div id="address-fields" class="address-fields">
-            <input type="text" id="customer-name" placeholder="Seu nome completo" required>
-            <input type="text" id="street" placeholder="Rua / Avenida" required>
-            <input type="text" id="number" placeholder="Número" required>
-            <input type="text" id="neighborhood" placeholder="Bairro" required>
-        </div>
-        <div class="options-group">
-            <label class="option-label"><input type="radio" name="payment" value="dinheiro" checked> Dinheiro</label>
-            <label class="option-label"><input type="radio" name="payment" value="cartao"> Cartão</label>
-            <label class="option-label pix-label">
-                <input type="radio" name="payment" value="pix"> PIX
-                <button onclick="copyPix()" class="copy-btn">Copiar</button>
-            </label>
-        </div>
-        <div class="troco-field">
-            <input type="number" id="troco-value" placeholder="Troco para quanto? (opcional)" step="0.01">
-        </div>
-        <button id="checkout-btn" onclick="checkout()">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                <path d="M22 2L11 13"></path><path d="M22 2l-7 20-4-9-9-4z"></path>
-            </svg>
-            Enviar Pedido no WhatsApp
-        </button>
-    </div>
 
-    <!-- MODAL DE IMAGEM -->
-    <div id="image-modal" class="image-modal" onclick="closeModal()">
-        <span class="modal-close" onclick="closeModal()">×</span>
-        <img id="modal-image" src="" alt="Foto ampliada">
+        <div id="cart-items" class="cart-items"></div>
+
+        <div class="cart-footer">
+            <!-- Tipo de pedido -->
+            <div class="delivery-options">
+                <label class="active"><input type="radio" name="type" value="pickup" checked onchange="updateDelivery()"> Retirada</label>
+                <label><input type="radio" name="type" value="delivery" onchange="updateDelivery()"> Entrega +R$8</label>
+            </div>
+
+            <!-- Endereço -->
+            <div id="address-fields" style="display:none;">
+                <input type="text" id="customer-name" placeholder="Seu nome completo">
+                <input type="text" id="street" placeholder="Rua / Avenida">
+                <input type="text" id="number" placeholder="Número">
+                <input type="text" id="neighborhood" placeholder="Bairro">
+            </div>
+
+            <!-- Pagamento -->
+            <div class="payment-options">
+                <label class="active"><input type="radio" name="payment" value="dinheiro" checked> Dinheiro</label>
+                <label><input type="radio" name="payment" value="cartao"> Cartão</label>
+                <label class="pix-label">
+                    <input type="radio" name="payment" value="pix"> PIX
+                    <button type="button" onclick="copyPix()" class="copy-pix-btn">Copiar chave</button>
+                </label>
+            </div>
+
+            <!-- Troco -->
+            <div id="troco-field" class="troco-field">
+                <input type="number" id="troco-value" placeholder="Troco para quanto? (opcional)" step="0.01">
+            </div>
+
+            <div class="total">
+                <span>Total:</span>
+                <strong id="cart-total">R$ 0,00</strong>
+            </div>
+
+            <button id="checkout-btn" onclick="checkout()">Finalizar Pedido no WhatsApp</button>
+        </div>
     </div>
 
     <div id="cart-overlay" onclick="toggleCart()"></div>
+
+    <div id="image-modal" class="image-modal" onclick="closeModal()">
+        <span class="modal-close" onclick="closeModal()">×</span>
+        <img id="modal-image" src="" alt="">
+    </div>
+
     <div id="toast-container"></div>
 
     <script src="script.js"></script>

@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     populateMenu();
     updateCart();
     setupSearch();
+    setupPaymentToggle();
 });
 
 function populateMenu() {
@@ -30,24 +31,24 @@ function populateMenu() {
 }
 
 function selectSize(btn) {
-    btn.parentElement.querySelectorAll('.size-btn').forEach(b => b.classList.remove('selected'));
+    btn.parentNode.querySelectorAll('.size-btn').forEach(b => b.classList.remove('selected'));
     btn.classList.add('selected');
 }
 
 function addToCart(name, button) {
-    const sizeBtn = button.parentElement.querySelector('.size-btn.selected');
+    const sizeBtn = button.parentNode.querySelector('.size-btn.selected');
     if (!sizeBtn) return toast('Selecione o tamanho!');
     const size = sizeBtn.innerText.split(' - ')[0];
     const price = parseFloat(sizeBtn.dataset.price);
     const existing = cart.find(i => i.name === name && i.size === size);
-    existing ? existing.qty++ : cart.push({name, size, price, qty:1});
+    if (existing) existing.qty++; else cart.push({name, size, price, qty:1});
     updateCart();
     toast(`${name} (${size}) adicionado!`);
 }
 
 function addDrink(name, price) {
     const existing = cart.find(i => i.name === name);
-    existing ? existing.qty++ : cart.push({name, size:"Único", price, qty:1});
+    if (existing) existing.qty++; else cart.push({name, size:"Único", price, qty:1});
     updateCart();
     toast(`${name} adicionado!`);
 }
@@ -59,51 +60,58 @@ function updateQuantity(i, delta) {
 }
 
 function updateCart() {
-    const itemsDiv = document.getElementById('cart-items');
-    itemsDiv.innerHTML = cart.length === 0 ? '<p style="text-align:center;color:#aaa;padding:2rem">Carrinho vazio</p>' : '';
-    let subtotal = 0;
+    const container = document.getElementById('cart-items');
+    container.innerHTML = cart.length === 0 ? '' : '';
+    let total = 0;
     cart.forEach((item, i) => {
-        subtotal += item.price * item.qty;
-        itemsDiv.innerHTML += `
+        total += item.price * item.qty;
+        container.innerHTML += `
             <div class="cart-item">
                 <div>
                     <strong>${item.name}</strong> (${item.size})<br>
                     <small>R$ ${item.price.toFixed(2)} × ${item.qty}</small>
                 </div>
-                <div style="display:flex;gap:10px;align-items:center">
-                    <button class="qty-btn" onclick="updateQuantity(${i},-1)">−</button>
+                <div class="qty">
+                    <button onclick="updateQuantity(${i},-1)">−</button>
                     <span>${item.qty}</span>
-                    <button class="qty-btn" onclick="updateQuantity(${i},1)">+</button>
+                    <button onclick="updateQuantity(${i},1)">+</button>
                 </div>
             </div>`;
     });
+
     const delivery = document.querySelector('input[value="delivery"]')?.checked;
-    document.getElementById('delivery-line').style.display = delivery ? 'flex' : 'none';
-    document.getElementById('subtotal').textContent = `R$ ${subtotal.toFixed(2)}`;
-    document.getElementById('cart-total').textContent = `R$ ${(subtotal + (delivery ? 8 : 0)).toFixed(2)}`;
-    document.getElementById('cart-count').textContent = cart.reduce((s,i)=>s+i.qty,0) || '';
+    if (delivery) total += 8;
+
+    document.getElementById('cart-total').textContent = `R$ ${total.toFixed(2)}`;
+    document.getElementById('cart-count').textContent = cart.reduce((a,b)=>a+b.qty,0) || '';
     localStorage.setItem('cart', JSON.stringify(cart));
 }
 
 function updateDelivery() {
     const isDelivery = document.querySelector('input[value="delivery"]')?.checked;
     document.getElementById('address-fields').style.display = isDelivery ? 'block' : 'none';
-    document.querySelectorAll('.option-label').forEach(l => l.classList.toggle('active', l.dataset.type === (isDelivery ? 'delivery' : 'pickup')));
+    document.querySelectorAll('.delivery-options label').forEach(l => l.classList.toggle('active', l.querySelector('input').checked));
     updateCart();
+}
+
+function setupPaymentToggle() {
+    document.querySelectorAll('input[name="payment"]').forEach(radio => {
+        radio.addEventListener('change', () => {
+            document.querySelectorAll('.payment-options label').forEach(l => l.classList.remove('active'));
+            radio.parentElement.classList.add('active');
+            document.getElementById('troco-field').style.display = radio.value === 'dinheiro' ? 'block' : 'none';
+        });
+    });
 }
 
 function toggleCart() {
     document.getElementById('cart').classList.toggle('open');
     document.getElementById('cart-overlay').classList.toggle('show');
+    document.body.style.overflow = document.getElementById('cart').classList.contains('open') ? 'hidden' : '';
 }
 
-function toggleMenu() {
-    document.getElementById('nav-links').classList.toggle('active');
-}
-
-function closeMenu() {
-    document.getElementById('nav-links').classList.remove('active');
-}
+function toggleMenu() { document.getElementById('nav-links').classList.toggle('active'); }
+function closeMenu() { document.getElementById('nav-links').classList.remove('active'); }
 
 function setupSearch() {
     document.getElementById('menu-search').addEventListener('input', e => {
@@ -123,16 +131,6 @@ function toast(msg) {
     setTimeout(() => t.remove(), 3500);
 }
 
-function copyPix() {
-    navigator.clipboard.writeText('34999194464');
-    toast('Chave PIX copiada!');
-}
-
-function shareSite() {
-    if (navigator.share) navigator.share({title: 'Batata Recheada Monte', url: location.href});
-    else { navigator.clipboard.writeText(location.href); toast('Link copiado!'); }
-}
-
 function openModal(src) {
     document.getElementById('modal-image').src = src;
     document.getElementById('image-modal').classList.add('show');
@@ -145,28 +143,37 @@ function closeModal() {
 
 function checkout() {
     if (cart.length === 0) return toast('Carrinho vazio!');
-    let msg = "Pedido Batata Recheada Monte:\n\n";
-    let total = 0;
+
+    let msg = "Pedido Batata Recheada Monte:\n\n", total = 0;
     cart.forEach(i => {
         msg += `• ${i.name} (${i.size}) × ${i.qty} = R$ ${(i.price*i.qty).toFixed(2)}\n`;
         total += i.price * i.qty;
     });
+
     const delivery = document.querySelector('input[value="delivery"]')?.checked;
     if (delivery) total += 8;
-    msg += `\nSubtotal: R$ ${total.toFixed(2)}`;
+
+    msg += `\nTotal: R$ ${total.toFixed(2)}`;
+
     if (delivery) {
         const nome = document.getElementById('customer-name').value.trim();
         const rua = document.getElementById('street').value.trim();
         const num = document.getElementById('number').value.trim();
         const bairro = document.getElementById('neighborhood').value.trim();
         if (!nome || !rua || !num || !bairro) return toast('Preencha o endereço!');
-        msg += `\nTaxa de entrega: R$ 8,00\n\nEntregar para:\n${nome}\n${rua}, ${num} - ${bairro}, Monte Carmelo-MG`;
-    } else msg += "\n\nRetirada no local";
+        msg += `\n\nEntrega (+R$8):\n${nome}\n${rua}, ${num} - ${bairro}, Monte Carmelo-MG`;
+    } else {
+        msg += "\n\nRetirada no local";
+    }
+
     const payment = document.querySelector('input[name="payment"]:checked').value;
     msg += `\n\nPagamento: ${payment === 'dinheiro' ? 'Dinheiro' : payment === 'cartao' ? 'Cartão' : 'PIX'}`;
+    
     const troco = document.getElementById('troco-value').value;
     if (troco) msg += ` (Troco para R$ ${troco})`;
+
     msg += "\n\nObrigado!";
+
     location.href = `https://wa.me/553499194464?text=${encodeURIComponent(msg)}`;
     cart = []; localStorage.removeItem('cart'); updateCart(); toggleCart();
     toast('Pedido enviado com sucesso!');

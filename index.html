@@ -3,170 +3,153 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Batata Recheada Monte - Delivery de Batatas Recheadas Deliciosas em Monte Carmelo, MG</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Batata Recheada Monte - Delivery Monte Carmelo</title>
+    <meta name="description" content="As melhores batatas recheadas de Monte Carmelo! Delivery rápido via WhatsApp.">
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <meta name="description" content="Batata Recheada Monte: As melhores batatas recheadas em Monte Carmelo, MG. Delivery rápido e delicioso! Peça agora via WhatsApp.">
-    <meta name="keywords" content="batata recheada, Monte Carmelo, delivery, comida rápida, recheios gourmet">
-    <link rel="icon" href="https://i.ibb.co/678MfNfq/20251102-111004.png" type="image/png">
-    <!-- SEO Avançado: Open Graph e Schema.org -->
-    <meta property="og:title" content="Batata Recheada Monte">
-    <meta property="og:description" content="Delivery de batatas recheadas em Monte Carmelo, MG">
-    <meta property="og:image" content="https://i.ibb.co/DfMRR5hz/20251031-173449-1.jpg">
-    <meta property="og:url" content="https://seu-site.com">
-    <script type="application/ld+json">
-        {
-            "@context": "https://schema.org",
-            "@type": "Restaurant",
-            "name": "Batata Recheada Monte",
-            "address": {
-                "@type": "PostalAddress",
-                "streetAddress": "Rua Marajó N: 908",
-                "addressLocality": "Monte Carmelo, MG",
-                "addressCountry": "BR"
-            },
-            "servesCuisine": "Comida Rápida Brasileira",
-            "telephone": "+553499194464"
-        }
-    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="https://i.ibb.co/yF3gpKXy/logo-natal-Photoroom.png" type="image/png">
 </head>
 
-<body class="tema-natal">
-    <header role="banner">
-        <nav role="navigation" aria-label="Menu principal">
-            <div class="logo-section">
-                <div class="logo">
-                    <img src="https://i.ibb.co/fdQ1Bt4S/20251022-124747.png" alt="Logo Batata Recheada Monte" class="logo-img" loading="lazy">
-                </div>
-                <button class="hamburger" onclick="toggleMobileMenu()" aria-label="Abrir menu mobile" aria-expanded="false">≡</button>
+<body>
+
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="https://i.ibb.co/yF3gpKXy/logo-natal-Photoroom.png" alt="Batata Recheada Monte" class="logo-img">
             </div>
-            <ul class="nav-links" id="nav-links" role="menubar">
-                <li role="none"><a href="#hero" onclick="closeMobileMenu()" role="menuitem">Início</a></li>
-                <li role="none"><a href="#menu" onclick="closeMobileMenu()" role="menuitem">Cardápio</a></li>
-                <li role="none"><a href="#bebidas" onclick="closeMobileMenu()" role="menuitem">Bebidas</a></li>
-                <li role="none"><a href="#contact" onclick="closeMobileMenu()" role="menuitem">Contato</a></li>
+            <button class="hamburger" aria-label="Menu" onclick="toggleMenu()">Menu</button>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#hero" onclick="closeMenu()">Início</a></li>
+                <li><a href="#menu" onclick="closeMenu()">Cardápio</a></li>
+                <li><a href="#bebidas" onclick="closeMenu()">Bebidas</a></li>
+                <li><a href="#contact" onclick="closeMenu()">Contato</a></li>
             </ul>
         </nav>
     </header>
 
-    <main>
-        <section id="hero" role="banner" aria-label="Seção de boas-vindas">
-            <div class="hero-content">
-                <h1>Bem-vindo(a)</h1>
-                <p>Descubra sabores irresistíveis em Monte Carmelo, MG. Batatas recheadas artesanais, preparadas com ingredientes frescos e amor. Delivery disponível!</p>
-                <figure>
-                    <img src="https://i.ibb.co/DfMRR5hz/20251031-173449-1.jpg" alt="Promoção Especial de Recheios Deliciosos na Batata Recheada Monte" width="400" height="160" loading="lazy">
-                </figure>
-                <a href="#menu" class="btn" aria-label="Ver Cardápio">Ver Cardápio</a>
-            </div>
-        </section>
-
-        <!-- Busca no Cardápio (Nova Feature) -->
-        <section id="search-section" aria-label="Busca no cardápio">
-            <input type="search" id="menu-search" placeholder="Busque por recheio (ex: bacon, frango)..." aria-label="Buscar itens no cardápio">
-        </section>
-
-        <!-- CARDÁPIO -->
-        <section id="menu" aria-label="Cardápio de batatas recheadas">
-            <h2>Nosso Cardápio de Batatas Recheadas</h2>
-            <div class="menu-grid" id="menu-grid">
-                <!-- Itens serão populados via JS para facilitar filtros -->
-            </div>
-        </section>
-
-        <!-- BEBIDAS -->
-        <section id="bebidas" aria-label="Seção de bebidas">
-            <h2>Bebidas para Acompanhar</h2>
-            <div class="menu-grid">
-                <article class="menu-item">
-                    <h3>Coca-Cola Lata</h3>
-                    <img src="https://i.ibb.co/qf5F4vn/20251031-163500.jpg" alt="Coca-Cola Lata 350ml gelada" class="menu-img" loading="lazy">
-                    <p>Refrigerante Coca-Cola 350ml gelado. O clássico para refrescar seu paladar!</p>
-                    <button class="add-to-cart" onclick="addToCart('Coca-Cola Lata', null, 5.00)" aria-label="Adicionar Coca-Cola Lata ao carrinho">Adicionar R$5,00</button>
-                </article>
-                <article class="menu-item">
-                    <h3>Coca-Cola Lata Zero</h3>
-                    <img src="https://i.ibb.co/FkS7brzJ/20251031-163524.jpg" alt="Coca-Cola Lata Zero 350ml sem açúcar" class="menu-img" loading="lazy">
-                    <p>Coca-Cola Zero 350ml sem açúcar. Sabor sem culpa!</p>
-                    <button class="add-to-cart" onclick="addToCart('Coca-Cola Lata Zero', null, 5.00)" aria-label="Adicionar Coca-Cola Lata Zero ao carrinho">Adicionar R$5,00</button>
-                </article>
-            </div>
-        </section>
-
-        <!-- Mapa Embed (Atualizado com localização exata: Rua Marajó N: 908, Lagoinha, Monte Carmelo - MG) -->
-        <section id="map-section" aria-label="Mapa de localização">
-            <h2>Onde Estamos: Rua Marajó N: 908, Bairro: Lagoinha, Monte Carmelo - MG</h2>
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3759.8!2d-47.4989!3d-18.725!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTPCsDQzJzM1LjciUyA0N8KwMjknNTguMyJX!5e0!3m2!1spt-BR!2sbr!4v1720572800000" width="100%" height="300"
-                style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mapa da localização: Rua Marajó N: 908, Bairro: Lagoinha, Monte Carmelo - MG">
-            </iframe>
-        </section>
-    </main>
-
-    <footer id="contact" role="contentinfo">
-        <div class="social-links">
-            <a href="https://wa.me/553499194464" target="_blank" rel="noopener" aria-label="WhatsApp para pedidos">📱 WhatsApp: (34) 9.9919-4464 - Peça Agora!</a>
-            <a href="https://www.instagram.com/batatarecheadamonte" target="_blank" rel="noopener" aria-label="Instagram da Batata Recheada Monte">📸 Siga no Instagram @batatarecheadamonte</a>
-            <button onclick="shareSite()" class="share-btn" aria-label="Compartilhar site">🔗 Compartilhar Site</button>
+    <!-- Hero -->
+    <section id="hero">
+        <div class="hero-content">
+            <h1>Batata Recheada Monte</h1>
+            <p>As mais gostosas de Monte Carmelo</p>
+            <img src="https://i.ibb.co/DfMRR5hz/20251031-173449-1.jpg" alt="Batata Recheada" loading="lazy">
+            <a href="#menu" class="btn">Ver Cardápio</a>
         </div>
-        <p>Endereço: Rua Marajó N: 908, Bairro: Lagoinha, Monte Carmelo - MG | &copy; 2025 Batata Recheada Monte. Todos os direitos reservados.</p>
+    </section>
+
+    <!-- Busca -->
+    <section id="search-section">
+        <input type="search" id="menu-search" placeholder="Buscar recheio (ex: bacon, frango)...">
+    </section>
+
+    <!-- Cardápio -->
+    <section id="menu">
+        <h2>Nosso Cardápio</h2>
+        <div class="menu-grid" id="menu-grid"></div>
+    </section>
+
+    <!-- Bebidas -->
+    <section id="bebidas">
+        <h2>Bebidas Geladas</h2>
+        <div class="menu-grid">
+            <article class="menu-item">
+                <img src="https://i.ibb.co/qf5F4vn/20251031-163500.jpg" alt="Coca-Cola" onclick="openModal(this.src)">
+                <h3>Coca-Cola Lata</h3>
+                <p>350ml</p>
+                <button class="add-to-cart" onclick="addDrink('Coca-Cola Lata', 5.00)">R$ 5,00</button>
+            </article>
+            <article class="menu-item">
+                <img src="https://i.ibb.co/FkS7brzJ/20251031-163524.jpg" alt="Coca-Cola Zero" onclick="openModal(this.src)">
+                <h3>Coca-Cola Zero</h3>
+                <p>350ml</p>
+                <button class="add-to-cart" onclick="addDrink('Coca-Cola Zero', 5.00)">R$ 5,00</button>
+            </article>
+        </div>
+    </section>
+
+    <!-- Mapa -->
+    <section id="map-section">
+        <h2>Onde Estamos</h2>
+        <p>Rua Marajó, 908 - Lagoinha, Monte Carmelo - MG</p>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3759.8!2d-47.4989!3d-18.725!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTPCsDQzJzM1LjciUyA0N8KwMjknNTguMyJX!5e0!3m2!1spt-BR!2sbr!4v1720572800000" allowfullscreen=""
+            loading="lazy"></iframe>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="social-links">
+            <a href="https://wa.me/553499194464" target="_blank">WhatsApp (34) 99919-4464</a>
+            <a href="https://instagram.com/batatarecheadamonte" target="_blank">@batatarecheadamonte</a>
+            <button onclick="shareSite()" class="share-btn">Compartilhar</button>
+        </div>
+        <p>© 2025 Batata Recheada Monte • Todos os direitos reservados</p>
     </footer>
 
-    <!-- Carrinho Modal (Melhorado com ARIA) -->
-    <button id="cart-toggle" onclick="toggleCart()" aria-label="Abrir carrinho de compras">
-        <span>🛒</span>
-        <span class="cart-count" id="cart-count" aria-live="polite">0</span>
+    <!-- BOTÃO FIXO DO CARRINHO -->
+    <button id="cart-toggle" onclick="toggleCart()" aria-label="Carrinho">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <circle cx="9" cy="21" r="1.5"></circle>
+            <circle cx="20" cy="21" r="1.5"></circle>
+            <path d="M1 1h4l2.5 12h13l2.5-8H6"></path>
+        </svg>
+        <span id="cart-count">0</span>
     </button>
-    <div id="cart" role="dialog" aria-modal="true" aria-labelledby="cart-header" aria-hidden="true">
+
+    <!-- CARRINHO LATERAL -->
+    <div id="cart" class="cart-sidebar">
         <div class="cart-header">
-            <h3 id="cart-header">Carrinho de Compras</h3>
-            <button onclick="toggleCart()" class="close-cart-header" aria-label="Fechar carrinho">×</button>
+            <h3>Seu Carrinho</h3>
+            <button onclick="toggleCart()" class="close-cart" aria-label="Fechar">×</button>
         </div>
-        <div id="cart-items" aria-live="polite"></div>
-        <div id="delivery-line" class="cart-item" style="display: none;">
-            <span>Taxa de Entrega em Monte Carmelo</span><span>R$ 8,00</span>
+        <div id="cart-items" class="cart-items"></div>
+        <div class="cart-summary">
+            <div class="summary-line"><span>Subtotal</span><span id="subtotal">R$ 0,00</span></div>
+            <div class="summary-line" id="delivery-line"><span>Taxa de entrega</span><span>R$ 8,00</span></div>
+            <div class="summary-total"><strong>Total</strong><strong id="cart-total">R$ 0,00</strong></div>
         </div>
-        <div id="cart-total" class="cart-total" role="status">Total: R$ 0,00</div>
-        <div class="delivery-options">
-            <h4>Opções de Entrega</h4>
-            <label><input type="radio" name="order-type" value="pickup" checked> Retirada no local: Rua Marajó N: 908, Bairro: Lagoinha, Monte Carmelo - MG</label>
-            <label><input type="radio" name="order-type" value="delivery"> Entrega em Monte Carmelo (R$8,00)</label>
-        </div>
-        <div class="address-inputs" style="display: none;">
-            <h4>Endereço de Entrega em Monte Carmelo</h4>
-            <input type="text" id="customer-name" placeholder="Nome Completo" aria-label="Nome completo" required>
-            <input type="text" id="street" placeholder="Rua/Avenida" aria-label="Rua ou avenida" required>
-            <input type="text" id="number" placeholder="Número" aria-label="Número da residência" required>
-            <input type="text" id="neighborhood" placeholder="Bairro" aria-label="Bairro" required>
-        </div>
-        <div class="payment-options">
-            <h4>Método de Pagamento</h4>
-            <label><input type="radio" name="payment-type" value="dinheiro" checked onchange="toggleTrocoField()"> 💵 Dinheiro (troco disponível)</label>
-            <label><input type="radio" name="payment-type" value="cartao" onchange="toggleTrocoField()"> 💳 Cartão (Débito/Crédito)</label>
-            <label class="pix-label"><input type="radio" name="payment-type" value="pix" onchange="toggleTrocoField()"> 💰 Pix 
-                <span class="pix-key">Chave: 34999194464</span>
-                <button class="copy-pix-btn" onclick="copyPix()" aria-label="Copiar chave PIX">📋 Copiar</button>
+        <div class="options-group">
+            <label class="option-label active" data-type="pickup">
+                <input type="radio" name="order-type" value="pickup" checked onchange="updateDelivery()"> Retirada no local
             </label>
-            <div id="troco-field" class="troco-inputs" style="display: none; margin-top: 1rem; padding: 1rem; background: rgba(255, 215, 0, 0.05); border-radius: 8px;">
-                <label for="troco-value">Troco para quanto? (R$)</label>
-                <input type="number" id="troco-value" placeholder="Ex: 50.00" step="0.01" min="0" aria-label="Valor para troco">
-            </div>
+            <label class="option-label" data-type="delivery">
+                <input type="radio" name="order-type" value="delivery" onchange="updateDelivery()"> Entrega (+R$ 8,00)
+            </label>
         </div>
-        <div class="cart-actions">
-            <button id="checkout-btn" onclick="checkout()" aria-label="Finalizar pedido via WhatsApp">Finalizar Pedido via WhatsApp</button>
+        <div id="address-fields" class="address-fields">
+            <input type="text" id="customer-name" placeholder="Seu nome completo" required>
+            <input type="text" id="street" placeholder="Rua / Avenida" required>
+            <input type="text" id="number" placeholder="Número" required>
+            <input type="text" id="neighborhood" placeholder="Bairro" required>
         </div>
+        <div class="options-group">
+            <label class="option-label"><input type="radio" name="payment" value="dinheiro" checked> Dinheiro</label>
+            <label class="option-label"><input type="radio" name="payment" value="cartao"> Cartão</label>
+            <label class="option-label pix-label">
+                <input type="radio" name="payment" value="pix"> PIX
+                <button onclick="copyPix()" class="copy-btn">Copiar</button>
+            </label>
+        </div>
+        <div class="troco-field">
+            <input type="number" id="troco-value" placeholder="Troco para quanto? (opcional)" step="0.01">
+        </div>
+        <button id="checkout-btn" onclick="checkout()">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M22 2L11 13"></path><path d="M22 2l-7 20-4-9-9-4z"></path>
+            </svg>
+            Enviar Pedido no WhatsApp
+        </button>
     </div>
 
-    <!-- Overlay para carrinho -->
-    <div id="cart-overlay" class="overlay" aria-hidden="true"></div>
-
-    <!-- Container para Notificações (Toasts) -->
-    <div id="toast-container" role="status" aria-live="polite"></div>
-
-    <!-- Flocos de Neve Animados (Melhorado: Mais dinâmicos) -->
-    <div class="snowflakes" aria-hidden="true">
-        <!-- JS gerará mais flocos dinamicamente -->
+    <!-- MODAL DE IMAGEM -->
+    <div id="image-modal" class="image-modal" onclick="closeModal()">
+        <span class="modal-close" onclick="closeModal()">×</span>
+        <img id="modal-image" src="" alt="Foto ampliada">
     </div>
+
+    <div id="cart-overlay" onclick="toggleCart()"></div>
+    <div id="toast-container"></div>
 
     <script src="script.js"></script>
 </body>

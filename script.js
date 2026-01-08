@@ -1,8 +1,8 @@
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
 const menuItems = [
-    { name: "Strogonoff de Frango", img: "https://i.ibb.co/zWNRtmBC/CARNE-SECA-AO-MOLHO-BRANCO.jpg", desc: "Batata Inglesa - Reijão cremoso - Mussarela - Cheiro verde - Batata Palha", sizes: [{ size: "500g", price: 24.99 }] },
-    { name: "Fraldinha ao Molho Sugo", img: "https://i.ibb.co/jvkx0bzy/FRALDINHA-AO-MOLHO-SUGO.jpg", desc: "Fraldinha desfiada, molho sugo, mussarela, bacon", sizes: [{ size: "500g", price: 34 }, { size: "750g", price: 51 }] }
+    { name: "Strogonoff de Frango", img: "https://iili.io/fex19Jj.png", desc: "Batata Inglesa - Reijão cremoso - Mussarela - Cheiro verde - Batata Palha", sizes: [{ size: "500ml", price: 24.99 }] },
+    { name: "Strogonoff de Carne", img: "https://iili.io/fexMe7s.png", desc: "Batata inglesa - Requeijão cremoso - Mussarela - Cheiro Verde", sizes: [{ size: "500ml", price: 29.99 }] }
 ];
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -281,4 +281,5 @@ function shareSite() {
     }
 
 }
+
 

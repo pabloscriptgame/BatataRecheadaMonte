@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <header id="header">
             <nav>
                 <div class="logo">
-                    <img src="https://i.ibb.co/yF3gpKXy/logo-natal-Photoroom.png" alt="Batata Recheada Monte" class="logo-img">
+                    <img src="https://iili.io/feojeTb.png" alt="Batata Recheada Monte" class="logo-img">
                 </div>
                 <button class="hamburger" aria-label="Abrir menu" onclick="toggleMenu()">
                     <span></span><span></span><span></span>
@@ -282,4 +282,5 @@ function shareSite() {
         navigator.clipboard.writeText(location.href);
         toast('Link copiado para compartilhar!');
     }
+
 }

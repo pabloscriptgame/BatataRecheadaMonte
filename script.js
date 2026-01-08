@@ -1,10 +1,7 @@
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
 const menuItems = [
-    { name: "Carne Seca ao Molho Branco", img: "https://i.ibb.co/zWNRtmBC/CARNE-SECA-AO-MOLHO-BRANCO.jpg", desc: "Carne seca, molho branco, mussarela, requeijão, bacon", sizes: [{ size: "500g", price: 34 }, { size: "750g", price: 51 }] },
-    { name: "Bacon ao Molho Branco", img: "https://i.ibb.co/GZT04vx/BACON-AO-MOLHO-BRANCO-feito.jpg", desc: "Bacon crocante, molho branco, mussarela, requeijão", sizes: [{ size: "500g", price: 25 }, { size: "750g", price: 38 }] },
-    { name: "Frango ao Molho Branco", img: "https://i.ibb.co/kgx7KNq5/FRANGO-AO-MOLHO-BRANCO-OU-AO-MOLHO-SUGO.jpg", desc: "Frango, molho branco, mussarela, bacon, requeijão", sizes: [{ size: "500g", price: 25 }, { size: "750g", price: 38 }] },
-    { name: "Calabresa ao Molho Duplo", img: "https://i.ibb.co/nsg4VmXz/CALABRESA-AO-MOLHO-BRANCO-E-MOLHO-SUGO.jpg", desc: "Calabresa, molho branco + sugo, bacon, requeijão", sizes: [{ size: "500g", price: 32 }, { size: "750g", price: 48 }] },
+    { name: "Strogonoff de Frango", img: "https://i.ibb.co/zWNRtmBC/CARNE-SECA-AO-MOLHO-BRANCO.jpg", desc: "Batata Inglesa - Reijão cremoso - Mussarela - Cheiro verde - Batata Palha", sizes: [{ size: "500g", price: 24.99 }] },
     { name: "Fraldinha ao Molho Sugo", img: "https://i.ibb.co/jvkx0bzy/FRALDINHA-AO-MOLHO-SUGO.jpg", desc: "Fraldinha desfiada, molho sugo, mussarela, bacon", sizes: [{ size: "500g", price: 34 }, { size: "750g", price: 51 }] }
 ];
 
@@ -284,3 +281,4 @@ function shareSite() {
     }
 
 }
+

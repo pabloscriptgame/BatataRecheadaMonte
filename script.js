@@ -2,6 +2,7 @@ let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
 const menuItems = [
     { name: "Strogonoff de Frango", img: "https://iili.io/fex19Jj.png", desc: "Batata Inglesa - Reijão cremoso - Mussarela - Cheiro verde - Batata Palha", sizes: [{ size: "500ml", price: 24.99 }] },
+    { name: "Carne seca com banana da terra", img: "https://iili.io/fehVRGs.md.png", desc: "Batata inglesa - Carne seca ao molho branco - Mussarela - Banana da terra frita - Requeijão - Cheiro verde ", sizes: [{ size: "500ml", price: 29.99 }] },
     { name: "Strogonoff de Carne", img: "https://iili.io/fexMe7s.png", desc: "Batata inglesa - Requeijão cremoso - Mussarela - Cheiro Verde", sizes: [{ size: "500ml", price: 29.99 }] }
 ];
 
@@ -281,5 +282,6 @@ function shareSite() {
     }
 
 }
+
 
 

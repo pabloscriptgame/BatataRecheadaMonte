@@ -1,159 +1,447 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Batata Recheada Monte - Delivery Monte Carmelo</title>
-    <meta name="description" content="As melhores batatas recheadas de Monte Carmelo! Delivery rápido via WhatsApp.">
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="icon" href="https://i.ibb.co/yF3gpKXy/logo-natal-Photoroom.png" type="image/png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fortune Tiger – Win Big Every Day</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Rajdhani:wght@400;600;700&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <div id="header-container"></div>
+<!-- FLOATING PARTICLES -->
+<div class="particles" id="particles"></div>
 
-    <section id="hero">
-        <div class="hero-content">
-            <h1>Batata Recheada Monte</h1>
-            <p>As mais gostosas de Monte Carmelo</p>
-            <a href="#menu" class="btn">Ver Cardápio</a>
-        </div>
-    </section>
-
-    <section id="search-section">
-        <input type="search" id="menu-search" placeholder="Buscar recheio (ex: bacon, frango, calabresa)...">
-    </section>
-
-    <section id="menu">
-        <h2>Nosso Cardápio</h2>
-        <div class="menu-grid" id="menu-grid"></div>
-    </section>
-
-    <section id="bebidas">
-        <h2>Bebidas Geladas</h2>
-        <div class="menu-grid">
-            <article class="menu-item">
-                <img src="https://i.ibb.co/qf5F4vn/20251031-163500.jpg" alt="Coca-Cola" onclick="openModal(this.src)">
-                <h3>Coca-Cola Lata</h3>
-                <p>350ml</p>
-                <button class="add-to-cart" onclick="addDrink('Coca-Cola Lata', 5)">R$ 5,00</button>
-            </article>
-            <article class="menu-item">
-                <img src="https://i.ibb.co/FkS7brzJ/20251031-163524.jpg" alt="Coca-Cola Zero" onclick="openModal(this.src)">
-                <h3>Coca-Cola Zero</h3>
-                <p>350ml</p>
-                <button class="add-to-cart" onclick="addDrink('Coca-Cola Zero', 5)">R$ 5,00</button>
-            </article>
-        </div>
-    </section>
-
-     <!-- Footer (mantido igual ao original) -->
-    <footer class="bg-dark text-white text-center py-5 bg-gradient-footer">
-        <a href="https://www.instagram.com/batatarecheadamonte/" target="_blank" style="display: inline-block; padding: 10px 20px; background-color: #E4405F; color: white; font-weight: bold; text-decoration: none; border-radius: 8px; font-family: Arial, sans-serif;">
-            Seguir no Instagram
-        </a>
-        <div class="container mb-5">
-            <blockquote class="instagram-media" 
-                       data-instgrm-captioned 
-                       data-instgrm-permalink="https://www.instagram.com/p/DQl6TokgEt7/" 
-                       data-instgrm-version="14" 
-                       style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%;">
-                <div style="padding:16px;">
-                    <a href="https://www.instagram.com/batatarecheadamonte/" 
-                       style="background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" 
-                       target="_blank"></a>
-                </div>
-            </blockquote>
-            <script async src="//www.instagram.com/embed.js"></script>
-        </div>
-
-    <footer id="contact">
-        <div class="social-links">
-            <a href="https://wa.me/553499194464" target="_blank">WhatsApp (34) 99919-4464</a>
-            <a href="https://instagram.com/batatarecheadamonte" target="_blank">@batatarecheadamonte</a>
-            <button onclick="shareSite()" class="share-btn">Compartilhar Site</button>
-        </div>
-        <p class="webmaster">
-            WebMaster: <a href="https://www.pablologomarcas.online" target="_blank">PabloDesigner</a> 
-        </p>
-        <p>© 2026 Batata Recheada Monte</p>
-    </footer>
-
-    <button id="cart-toggle" onclick="toggleCart()">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-            <circle cx="9" cy="21" r="1.5"></circle>
-            <circle cx="20" cy="21" r="1.5"></circle>
-            <path d="M1 1h4l2.5 12h13l2.5-8H6"></path>
-        </svg>
-        <span id="cart-count"></span>
-    </button>
-
-    <div id="cart" class="cart-modal">
-        <div class="cart-header">
-            <h3>Seu Pedido</h3>
-            <button onclick="toggleCart()" class="close-cart">×</button>
-        </div>
-        <div id="cart-items" class="cart-items"></div>
-
-        <div class="cart-scroll-area">
-            <div class="delivery-options">
-                <label class="active"><input type="radio" name="type" value="pickup" checked onchange="updateDelivery()"> Retirada</label>
-                <label><input type="radio" name="type" value="delivery" onchange="updateDelivery()"> Entrega +R$8</label>
-            </div>
-            <div id="address-fields" style="display:none;">
-                <input type="text" id="customer-name" placeholder="Seu nome completo">
-                <input type="text" id="street" placeholder="Rua / Avenida">
-                <input type="text" id="number" placeholder="Número">
-                <input type="text" id="neighborhood" placeholder="Bairro">
-            </div>
-            <div class="payment-options">
-                <label class="active"><input type="radio" name="payment" value="dinheiro" checked> Dinheiro</label>
-                <label><input type="radio" name="payment" value="cartao"> Cartão</label>
-                <label class="pix-label">
-                    <input type="radio" name="payment" value="pix"> PIX
-                    <button type="button" onclick="copyPix()" class="copy-pix-btn">Copiar chave</button>
-                </label>
-            </div>
-            <div id="troco-field" class="troco-field" style="display:none;">
-                <input type="number" id="troco-value" placeholder="Troco para quanto? (opcional)" step="0.01">
-            </div>
-            <div class="total">
-                <span>Total:</span>
-                <strong id="cart-total">R$ 0,00</strong>
-            </div>
-        </div>
-
-        <div class="cart-footer-fixed">
-            <button id="checkout-btn" onclick="checkout()">Finalizar Pedido no WhatsApp</button>
-        </div>
+<!-- HEADER -->
+<header class="header">
+  <div class="header-inner">
+    <div class="logo">
+      <span class="logo-icon">🐯</span>
+      <span class="logo-text">Fortune<span class="gold">Tiger</span></span>
     </div>
-    <div id="cart-overlay" onclick="toggleCart()"></div>
-
-    <div id="image-modal" class="image-modal" onclick="closeModal()">
-        <span class="modal-close" onclick="closeModal()">×</span>
-        <img id="modal-image" src="" alt="">
+    <nav class="nav">
+      <a href="#games">Games</a>
+      <a href="#promotions">Promotions</a>
+      <a href="#vip">VIP</a>
+      <a href="pages/support.html">Support</a>
+    </nav>
+    <div class="header-btns">
+      <button class="btn-login" onclick="openModal('loginModal')">Login</button>
+      <button class="btn-register" onclick="openModal('registerModal')">Sign Up</button>
     </div>
+    <button class="hamburger" id="hamburger">☰</button>
+  </div>
+</header>
 
-    <div id="toast-container"></div>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-badge">🔥 HOT PROMO – UP TO $5,000 BONUS</div>
+    <h1 class="hero-title">
+      FORTUNE <span class="gold-shine">TIGER</span><br>
+      <span class="hero-sub">The Luckiest Slot in the World</span>
+    </h1>
+    <p class="hero-desc">Spin, win and claim massive jackpots every day. New players get 200% on the first deposit.</p>
+    <div class="hero-btns">
+      <button class="btn-play" onclick="openModal('registerModal')">🎰 PLAY NOW – FREE</button>
+      <button class="btn-demo" onclick="openModal('registerModal')">▶ TRY DEMO</button>
+    </div>
+    <div class="hero-trust">
+      <span>✅ Licensed & Regulated</span>
+      <span>🔒 SSL Secured</span>
+      <span>⚡ Instant Withdrawal</span>
+      <span>🎁 Daily Bonuses</span>
+    </div>
+  </div>
+  <div class="hero-tiger">
+    <div class="tiger-anim">🐯</div>
+  </div>
+</section>
 
-        <!-- Histats.com  (div with counter) --><div id="histats_counter"></div>
-<!-- Histats.com  START  (aync)-->
-<script type="text/javascript">var _Hasync= _Hasync|| [];
-_Hasync.push(['Histats.start', '1,5002197,4,5,172,25,00011001']);
-_Hasync.push(['Histats.fasi', '1']);
-_Hasync.push(['Histats.track_hits', '']);
-(function() {
-var hs = document.createElement('script'); hs.type = 'text/javascript'; hs.async = true;
-hs.src = ('//s10.histats.com/js15_as.js');
-(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(hs);
-})();</script>
-<noscript><a href="/" target="_blank"><img  src="//sstatic1.histats.com/0.gif?5002197&101" alt="" border="0"></a></noscript>
-<!-- Histats.com  END  -->
+<!-- MARQUEE -->
+<div class="marquee-bar">
+  <div class="marquee-track">
+    <span>🏆 John W. won $12,450 &nbsp;|&nbsp; </span>
+    <span>💰 Maria S. won $3,200 &nbsp;|&nbsp; </span>
+    <span>🎰 Carlos R. won $8,750 &nbsp;|&nbsp; </span>
+    <span>⭐ Anna K. won $21,000 &nbsp;|&nbsp; </span>
+    <span>🔥 David M. won $5,600 &nbsp;|&nbsp; </span>
+    <span>💎 Sophie L. won $14,300 &nbsp;|&nbsp; </span>
+    <span>🃏 Alex T. won $2,980 &nbsp;|&nbsp; </span>
+    <span>🏆 John W. won $12,450 &nbsp;|&nbsp; </span>
+    <span>💰 Maria S. won $3,200 &nbsp;|&nbsp; </span>
+    <span>🎰 Carlos R. won $8,750 &nbsp;|&nbsp; </span>
+    <span>⭐ Anna K. won $21,000 &nbsp;|&nbsp; </span>
+    <span>🔥 David M. won $5,600 &nbsp;|&nbsp; </span>
+  </div>
+</div>
 
-    <script src="script.js"></script>
+<!-- STATS -->
+<section class="stats-section">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-num" data-target="2500000">0</div>
+        <div class="stat-label">Happy Players</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" data-target="98">0</div>
+        <div class="stat-label">% Payout Rate</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" data-target="500">0</div>
+        <div class="stat-label">+ Games</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" data-target="50000000">0</div>
+        <div class="stat-label">$ Already Paid</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GAMES -->
+<section class="games-section" id="games">
+  <div class="container">
+    <div class="section-header">
+      <h2>🎰 Featured Games</h2>
+      <p>The hottest slots are waiting for you</p>
+    </div>
+    <div class="games-grid">
+      <div class="game-card featured" onclick="openModal('registerModal')">
+        <div class="game-badge">🔥 HOT</div>
+        <div class="game-icon">🐯</div>
+        <div class="game-info">
+          <h3>Fortune Tiger</h3>
+          <div class="game-rtp">RTP: 96.81%</div>
+          <div class="game-stars">⭐⭐⭐⭐⭐</div>
+        </div>
+        <button class="btn-game">PLAY</button>
+      </div>
+      <div class="game-card" onclick="openModal('registerModal')">
+        <div class="game-badge new">NEW</div>
+        <div class="game-icon">🐉</div>
+        <div class="game-info">
+          <h3>Dragon's Gold</h3>
+          <div class="game-rtp">RTP: 97.20%</div>
+          <div class="game-stars">⭐⭐⭐⭐⭐</div>
+        </div>
+        <button class="btn-game">PLAY</button>
+      </div>
+      <div class="game-card" onclick="openModal('registerModal')">
+        <div class="game-badge jackpot">JACKPOT</div>
+        <div class="game-icon">💎</div>
+        <div class="game-info">
+          <h3>Diamond Fever</h3>
+          <div class="game-rtp">RTP: 96.50%</div>
+          <div class="game-stars">⭐⭐⭐⭐⭐</div>
+        </div>
+        <button class="btn-game">PLAY</button>
+      </div>
+      <div class="game-card" onclick="openModal('registerModal')">
+        <div class="game-icon">🍀</div>
+        <div class="game-info">
+          <h3>Lucky Clover</h3>
+          <div class="game-rtp">RTP: 95.90%</div>
+          <div class="game-stars">⭐⭐⭐⭐</div>
+        </div>
+        <button class="btn-game">PLAY</button>
+      </div>
+      <div class="game-card" onclick="openModal('registerModal')">
+        <div class="game-icon">🎆</div>
+        <div class="game-info">
+          <h3>Neon Nights</h3>
+          <div class="game-rtp">RTP: 97.00%</div>
+          <div class="game-stars">⭐⭐⭐⭐⭐</div>
+        </div>
+        <button class="btn-game">PLAY</button>
+      </div>
+      <div class="game-card" onclick="openModal('registerModal')">
+        <div class="game-icon">🏺</div>
+        <div class="game-info">
+          <h3>Egyptian Riches</h3>
+          <div class="game-rtp">RTP: 96.30%</div>
+          <div class="game-stars">⭐⭐⭐⭐</div>
+        </div>
+        <button class="btn-game">PLAY</button>
+      </div>
+    </div>
+    <div class="view-all-wrap">
+      <button class="btn-view-all" onclick="openModal('registerModal')">View All 500+ Games →</button>
+    </div>
+  </div>
+</section>
+
+<!-- PROMOTIONS -->
+<section class="promo-section" id="promotions">
+  <div class="container">
+    <div class="section-header">
+      <h2>🎁 Exclusive Promotions</h2>
+      <p>New bonuses every day just for you</p>
+    </div>
+    <div class="promo-grid">
+      <div class="promo-card">
+        <div class="promo-icon">🎊</div>
+        <h3>Welcome Bonus</h3>
+        <div class="promo-amount">200% up to $5,000</div>
+        <p>First deposit bonus for new players. Start your journey with a massive boost!</p>
+        <button class="btn-promo" onclick="openModal('registerModal')">CLAIM NOW</button>
+      </div>
+      <div class="promo-card featured-promo">
+        <div class="promo-icon">🔄</div>
+        <h3>Daily Reload</h3>
+        <div class="promo-amount">50% up to $1,000</div>
+        <p>Every day is a new chance to win. Reload your account and get 50% extra!</p>
+        <button class="btn-promo" onclick="openModal('registerModal')">CLAIM NOW</button>
+      </div>
+      <div class="promo-card">
+        <div class="promo-icon">🌀</div>
+        <h3>Free Spins</h3>
+        <div class="promo-amount">200 Free Spins</div>
+        <p>Get 200 free spins on Fortune Tiger every Friday. No deposit required!</p>
+        <button class="btn-promo" onclick="openModal('registerModal')">CLAIM NOW</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VIP -->
+<section class="vip-section" id="vip">
+  <div class="container">
+    <div class="vip-inner">
+      <div class="vip-text">
+        <div class="vip-label">EXCLUSIVE</div>
+        <h2>Join Our VIP Club</h2>
+        <p>Unlock exclusive benefits, personal account manager, higher withdrawal limits, and VIP-only bonuses.</p>
+        <ul class="vip-perks">
+          <li>💎 Personal Account Manager</li>
+          <li>⚡ Priority Withdrawals in 1 hour</li>
+          <li>🎁 Monthly VIP Bonus up to $50,000</li>
+          <li>✈️ Real-world VIP events & trips</li>
+          <li>🏆 Exclusive tournaments</li>
+        </ul>
+        <button class="btn-vip" onclick="openModal('registerModal')">BECOME VIP</button>
+      </div>
+      <div class="vip-levels">
+        <div class="vip-level bronze">🥉 Bronze</div>
+        <div class="vip-level silver">🥈 Silver</div>
+        <div class="vip-level gold">🥇 Gold</div>
+        <div class="vip-level platinum">💎 Platinum</div>
+        <div class="vip-level diamond">👑 Diamond</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PAYMENT METHODS -->
+<section class="payment-section">
+  <div class="container">
+    <div class="section-header">
+      <h2>💳 Payment Methods</h2>
+      <p>Fast, secure and reliable transactions</p>
+    </div>
+    <div class="payment-icons">
+      <div class="pay-item">💳 Visa</div>
+      <div class="pay-item">💳 Mastercard</div>
+      <div class="pay-item">🔸 Bitcoin</div>
+      <div class="pay-item">🔷 Ethereum</div>
+      <div class="pay-item">🅿️ PayPal</div>
+      <div class="pay-item">🔶 Tether</div>
+      <div class="pay-item">📱 Skrill</div>
+      <div class="pay-item">💠 Neteller</div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="container">
+    <div class="section-header">
+      <h2>⭐ What Players Say</h2>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="testi-stars">⭐⭐⭐⭐⭐</div>
+        <p>"I won $8,000 on my first week. Fortune Tiger is the real deal. Withdrawal was instant!"</p>
+        <div class="testi-name">— Michael T., United States</div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">⭐⭐⭐⭐⭐</div>
+        <p>"Best online casino I've ever played. The bonuses are incredible and the games are super fun!"</p>
+        <div class="testi-name">— Sarah M., United Kingdom</div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">⭐⭐⭐⭐⭐</div>
+        <p>"VIP service is absolutely top-tier. My account manager always helps me fast. Highly recommended!"</p>
+        <div class="testi-name">— Kevin L., Canada</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo"><span class="logo-icon">🐯</span><span class="logo-text">Fortune<span class="gold">Tiger</span></span></div>
+        <p>Fortune Tiger is licensed and regulated. We are committed to responsible gaming. Players must be 18+ to participate.</p>
+        <div class="footer-badges">
+          <span>🔒 SSL</span>
+          <span>✅ Licensed</span>
+          <span>🎲 Fair Play</span>
+          <span>18+</span>
+        </div>
+      </div>
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <a href="pages/about.html">About Us</a>
+        <a href="pages/terms.html">Terms & Conditions</a>
+        <a href="pages/privacy.html">Privacy Policy</a>
+        <a href="pages/responsible.html">Responsible Gaming</a>
+        <a href="pages/support.html">Support</a>
+      </div>
+      <div class="footer-links">
+        <h4>Games</h4>
+        <a href="#" onclick="openModal('registerModal')">Slots</a>
+        <a href="#" onclick="openModal('registerModal')">Live Casino</a>
+        <a href="#" onclick="openModal('registerModal')">Table Games</a>
+        <a href="#" onclick="openModal('registerModal')">Sports</a>
+      </div>
+      <div class="footer-links">
+        <h4>Support</h4>
+        <a href="pages/support.html">24/7 Live Chat</a>
+        <a href="mailto:support@fortunetiger.com">Email Support</a>
+        <a href="pages/faq.html">FAQ</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Fortune Tiger Casino. All Rights Reserved. | 18+ | Play Responsibly | T&Cs Apply</p>
+      <p class="footer-disclaimer">Fortune Tiger operates under license. Gambling can be addictive. Please play responsibly.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- MODALS -->
+<!-- Login Modal -->
+<div class="modal-overlay" id="loginModal" onclick="closeModalOut(event,'loginModal')">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('loginModal')">✕</button>
+    <div class="modal-logo">🐯 Fortune<span class="gold">Tiger</span></div>
+    <h2>Welcome Back</h2>
+    <p class="modal-sub">Login to your account</p>
+    <div class="form-group">
+      <label>Email or Username</label>
+      <input type="text" placeholder="Enter your email">
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" placeholder="Enter your password">
+    </div>
+    <div class="form-check">
+      <label><input type="checkbox"> Remember me</label>
+      <a href="#">Forgot Password?</a>
+    </div>
+    <button class="btn-submit" onclick="fakeLogin()">🔓 LOGIN</button>
+    <p class="modal-switch">Don't have an account? <a onclick="switchModal('loginModal','registerModal')">Sign Up</a></p>
+  </div>
+</div>
+
+<!-- Register Modal -->
+<div class="modal-overlay" id="registerModal" onclick="closeModalOut(event,'registerModal')">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('registerModal')">✕</button>
+    <div class="modal-logo">🐯 Fortune<span class="gold">Tiger</span></div>
+    <h2>Create Account</h2>
+    <p class="modal-sub">Join and get 200% Welcome Bonus!</p>
+    <div class="form-row">
+      <div class="form-group">
+        <label>First Name</label>
+        <input type="text" placeholder="John">
+      </div>
+      <div class="form-group">
+        <label>Last Name</label>
+        <input type="text" placeholder="Doe">
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Email</label>
+      <input type="email" placeholder="your@email.com">
+    </div>
+    <div class="form-group">
+      <label>Username</label>
+      <input type="text" placeholder="Choose a username">
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" placeholder="Min 8 characters">
+    </div>
+    <div class="form-group">
+      <label>Country</label>
+      <select>
+        <option>Select Country</option>
+        <option>United States</option>
+        <option>United Kingdom</option>
+        <option>Canada</option>
+        <option>Australia</option>
+        <option>Germany</option>
+        <option>France</option>
+        <option>Spain</option>
+        <option>Mexico</option>
+        <option>Argentina</option>
+        <option>Other</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Promo Code (optional)</label>
+      <input type="text" placeholder="Enter promo code">
+    </div>
+    <div class="form-check full">
+      <label><input type="checkbox"> I am 18+ and agree to <a href="pages/terms.html">Terms & Conditions</a></label>
+    </div>
+    <button class="btn-submit green" onclick="fakeRegister()">🎁 CREATE ACCOUNT & GET BONUS</button>
+    <p class="modal-switch">Already have an account? <a onclick="switchModal('registerModal','loginModal')">Login</a></p>
+  </div>
+</div>
+
+<!-- Success Modal -->
+<div class="modal-overlay" id="successModal" onclick="closeModalOut(event,'successModal')">
+  <div class="modal modal-success">
+    <button class="modal-close" onclick="closeModal('successModal')">✕</button>
+    <div class="success-icon">🎉</div>
+    <h2>Account Created!</h2>
+    <p>Welcome to Fortune Tiger! Your 200% welcome bonus has been activated. Start playing now!</p>
+    <div class="bonus-display">💰 $500 Bonus Ready!</div>
+    <button class="btn-submit green" onclick="closeModal('successModal')">START PLAYING →</button>
+  </div>
+</div>
+
+<!-- COOKIE BANNER -->
+<div class="cookie-banner" id="cookieBanner">
+  <p>🍪 We use cookies to improve your experience. By continuing, you agree to our <a href="pages/privacy.html">Privacy Policy</a>.</p>
+  <button onclick="acceptCookies()">Accept</button>
+</div>
+
+<!-- CHAT WIDGET -->
+<div class="chat-widget" onclick="toggleChat()">
+  💬
+  <span class="chat-badge">1</span>
+</div>
+<div class="chat-box" id="chatBox">
+  <div class="chat-header">
+    <span>🎰 Live Support</span>
+    <button onclick="toggleChat()">✕</button>
+  </div>
+  <div class="chat-messages" id="chatMessages">
+    <div class="chat-msg agent">Hello! 👋 Welcome to Fortune Tiger. How can I help you today?</div>
+  </div>
+  <div class="chat-input-row">
+    <input type="text" id="chatInput" placeholder="Type a message..." onkeydown="if(event.key==='Enter')sendChatMsg()">
+    <button onclick="sendChatMsg()">Send</button>
+  </div>
+</div>
+
+<script src="js/main.js"></script>
 </body>
-
 </html>
-
-

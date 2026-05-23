@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Support – Fortune Tiger</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    .page-wrap{max-width:900px;margin:100px auto 60px;padding:0 20px;}
+    .page-wrap h1{font-family:'Cinzel Decorative',serif;font-size:1.8rem;color:var(--gold);margin-bottom:8px;}
+    .back-btn{display:inline-block;color:var(--gold);margin-bottom:24px;font-weight:700;}
+    .support-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:48px;}
+    .support-card{background:var(--dark3);border:1px solid var(--border);border-radius:16px;padding:28px;text-align:center;transition:.3s;}
+    .support-card:hover{border-color:rgba(255,215,0,.4);transform:translateY(-4px);}
+    .support-card .icon{font-size:2.5rem;margin-bottom:12px;}
+    .support-card h3{font-size:1.1rem;margin-bottom:8px;color:#fff;}
+    .support-card p{color:var(--text2);font-size:.9rem;line-height:1.6;}
+    .faq-item{background:var(--dark3);border:1px solid var(--border);border-radius:12px;margin-bottom:12px;overflow:hidden;}
+    .faq-q{padding:18px 20px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-weight:700;font-size:.95rem;}
+    .faq-q:hover{background:rgba(255,215,0,.04);}
+    .faq-a{display:none;padding:0 20px 18px;color:var(--text2);line-height:1.7;font-size:.9rem;}
+    .faq-a.open{display:block;}
+    .section-h{font-family:'Cinzel Decorative',serif;font-size:1.3rem;color:#fff;margin:40px 0 20px;}
+    @media(max-width:600px){.support-grid{grid-template-columns:1fr;}}
+  </style>
+</head>
+<body>
+<header class="header">
+  <div class="header-inner">
+    <div class="logo" onclick="location.href='../index.html'"><span class="logo-icon">🐯</span><span class="logo-text">Fortune<span class="gold">Tiger</span></span></div>
+  </div>
+</header>
+<div class="page-wrap">
+  <a class="back-btn" href="../index.html">← Back to Home</a>
+  <h1>Support Center</h1>
+  <p style="color:var(--text2);margin-bottom:32px;">We're here 24/7 to help you with anything.</p>
+
+  <div class="support-grid">
+    <div class="support-card">
+      <div class="icon">💬</div>
+      <h3>Live Chat</h3>
+      <p>Chat with a support agent in real-time. Average response time: &lt;2 minutes.</p>
+    </div>
+    <div class="support-card">
+      <div class="icon">📧</div>
+      <h3>Email Support</h3>
+      <p>Send us an email at support@fortunetiger.com. We reply within 4 hours.</p>
+    </div>
+  </div>
+
+  <h2 class="section-h">Frequently Asked Questions</h2>
+
+  <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How do I claim my welcome bonus? <span>+</span></div><div class="faq-a">After your first deposit, the 200% welcome bonus is automatically credited to your account. No code required. Simply deposit and start playing!</div></div>
+
+  <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How long do withdrawals take? <span>+</span></div><div class="faq-a">Most withdrawals are processed within 1-24 hours. Crypto withdrawals are typically the fastest. Bank wires may take 1-3 business days.</div></div>
+
+  <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">What payment methods do you accept? <span>+</span></div><div class="faq-a">We accept Visa, Mastercard, Bitcoin, Ethereum, Tether, PayPal, Skrill, and Neteller.</div></div>
+
+  <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Is my personal data safe? <span>+</span></div><div class="faq-a">Absolutely. We use 256-bit SSL encryption to protect all transactions and personal data. We never share or sell your information to third parties.</div></div>
+
+  <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Can I set deposit limits? <span>+</span></div><div class="faq-a">Yes! We are committed to responsible gaming. You can set daily, weekly, or monthly deposit limits from your account settings at any time.</div></div>
+
+  <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">What are the wagering requirements for bonuses? <span>+</span></div><div class="faq-a">Bonuses generally carry a 30x wagering requirement unless otherwise stated. For example, a $100 bonus requires $3,000 in total bets before withdrawal.</div></div>
+
+  <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How do I join the VIP program? <span>+</span></div><div class="faq-a">VIP status is earned through consistent play. Our team will contact you when you qualify, or you can reach out to us and we'll review your account manually.</div></div>
+</div>
+
+<script>
+function toggleFaq(el) {
+  const a = el.nextElementSibling;
+  const span = el.querySelector('span');
+  a.classList.toggle('open');
+  span.textContent = a.classList.contains('open') ? '−' : '+';
+}
+</script>
+</body>
+</html>
